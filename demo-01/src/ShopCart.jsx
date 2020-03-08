@@ -13,7 +13,7 @@ export default class ShopCart extends Component {
       }]
     }
   }
-
+  cd
   render() {
     return (
       <Fragment>
@@ -22,7 +22,9 @@ export default class ShopCart extends Component {
         {/* 2. */}
         <input type="text" value={this.state.inputValue} onChange={this.inputChange} /> <button onClick={this.pushList}>增加服务</button>
         <ul>
-          {this.state.list.map((n, index) => <li onClick={this.deleteItem.bind(this, index)} key={n.id + n.name + 123}>{n.name}</li>)}
+          {this.state.list.map((n, index) => <li onClick={this.deleteItem.bind(this, index)} key={n.id + n.name + 123}
+            dangerouslySetInnerHTML={{ __html: n.name }}
+          ></li>)}
         </ul>
       </Fragment>
     )
