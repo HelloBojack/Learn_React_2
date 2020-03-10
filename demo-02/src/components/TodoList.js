@@ -5,7 +5,6 @@ import * as actionCreators from '../store/actionCreators'
 
 import TodoListUI from './TodoListUI'
 
-import axios from 'axios'
 export default class TodoList extends Component {
   state = store.getState()
 
@@ -13,24 +12,12 @@ export default class TodoList extends Component {
     store.subscribe(() => {
       this.setState(store.getState())
     })
-
-    axios.post('https://easy-mock.com/mock/5e64f2228e711c50e7d33153/react-demo/getList').then((res) => {
-      this.getList(res.data.data.list)
-    })
-      .catch((err) => {
-        console.log(err)
-      })
+    const action = actionCreators.getTodoList();
+    store.dispatch(action)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return true
-  }
-
-  getList(data) {
-    console.log(data);
-
-    const action = actionCreators.getListAction(data);
-    store.dispatch(action)
   }
 
   changInputValue = e => {
