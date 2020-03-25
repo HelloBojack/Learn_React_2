@@ -1,9 +1,11 @@
 import { List, Avatar } from "antd";
 import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
+import Router from "next/router";
 
 const listData = [];
 for (let i = 0; i < 23; i++) {
   listData.push({
+    id: i,
     href: "http://ant.design",
     title: `ant design part ${i}`,
     avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
@@ -38,6 +40,8 @@ const MyCardList = () => (
     }
     renderItem={item => (
       <List.Item
+        style={{ cursor: "pointer" }}
+        onClick={() => Router.push("/detail?id=" + item.id)}
         key={item.title}
         actions={[
           <IconText
