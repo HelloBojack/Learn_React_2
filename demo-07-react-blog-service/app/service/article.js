@@ -12,7 +12,13 @@ class ArticleService extends Service {
       const results = await ctx.model.Article.find({
         // Article为modal/article.js里面命名的名字
       });
-      return results;
+      if (results.length > 0) {
+        return {
+          "results": true,
+          data: results
+        };
+      }
+
     } catch (err) {
       ctx.body = JSON.stringify(err);
     }

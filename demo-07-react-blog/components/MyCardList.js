@@ -1,6 +1,8 @@
 import { List, Avatar } from "antd";
 import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 import Router from "next/router";
+import React, { useContext } from 'react';
+import { TestContext } from '../pages/index'
 
 const listData = [];
 for (let i = 0; i < 23; i++) {
@@ -22,60 +24,63 @@ const IconText = ({ icon, text }) => (
   </span>
 );
 
-const MyCardList = () => (
-  <List
-    itemLayout="vertical"
-    size="large"
-    pagination={{
-      onChange: page => {
-        console.log(page);
-      },
-      pageSize: 10
-    }}
-    dataSource={listData}
-    footer={
-      <div>
-        <b>ant design</b> footer part
+const MyCardList = () => {
+  const datalist = useContext(TestContext);
+  return (
+    <List
+      itemLayout="vertical"
+      size="large"
+      pagination={{
+        onChange: page => {
+          console.log(page);
+        },
+        pageSize: 10
+      }}
+      dataSource={datalist}
+      footer={
+        <div>
+          <b>ant design</b> footer part
       </div>
-    }
-    renderItem={item => (
-      <List.Item
-        style={{ cursor: "pointer" }}
-        onClick={() => Router.push("/detail?id=" + item.id)}
-        key={item.title}
-        actions={[
-          <IconText
-            icon={StarOutlined}
-            text="156"
-            key="list-vertical-star-o"
-          />,
-          <IconText
-            icon={LikeOutlined}
-            text="156"
-            key="list-vertical-like-o"
-          />,
-          <IconText
-            icon={MessageOutlined}
-            text="2"
-            key="list-vertical-message"
+      }
+      renderItem={item => (
+        <List.Item
+          style={{ cursor: "pointer" }}
+          onClick={() => Router.push("/detail?id=" + item.id)}
+          key={item.title}
+          actions={[
+            <IconText
+              icon={StarOutlined}
+              text="156"
+              key="list-vertical-star-o"
+            />,
+            <IconText
+              icon={LikeOutlined}
+              text="156"
+              key="list-vertical-like-o"
+            />,
+            <IconText
+              icon={MessageOutlined}
+              text="2"
+              key="list-vertical-message"
+            />
+          ]}
+          extra={
+            <img
+              width={272}
+              alt="logo"
+              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            />
+          }
+        >
+          <List.Item.Meta
+            avatar={<Avatar src={item.avatar} />}
+            title={<a href={item.href}>{item.title}</a>}
+            description={item.description}
           />
-        ]}
-        extra={
-          <img
-            width={272}
-            alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-          />
-        }
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={<a href={item.href}>{item.title}</a>}
-          description={item.description}
-        />
-        {item.content}
-      </List.Item>
-    )}
-  />
-);
+          {item.content}
+        </List.Item>
+      )}
+    />
+  )
+};
 export default MyCardList;
