@@ -13,7 +13,6 @@ const Home = (props) => {
     <div>
       <Layout>
         <MyHeader></MyHeader>
-        {/* <div>111{datalist[0].title}</div> */}
         <TestContext.Provider value={datalist} >
           <MyContent></MyContent>
         </TestContext.Provider>
@@ -25,9 +24,8 @@ const Home = (props) => {
 
 Home.getInitialProps = async () => {
   const promise = new Promise((resolve) => {
-    axios('http://127.0.0.1:7001/article').then(
+    axios('http://127.0.0.1:7001/articleList').then(
       (res) => {
-        console.log(res.data);
         resolve(res.data)
       }
     )

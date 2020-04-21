@@ -23,12 +23,28 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  // egg cors 跨域配置
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    credentials: true,
+  };
+
+  config.security = {
+    // 关闭csrf验证
+    csrf: {
+      enable: false,
+      ignoreJSON: true
+    },
+    // 白名单
+    domainWhiteList: ['*']
+  };
   // 连接mongodb
   config.mongoose = {
     client: {
       url: "mongodb://127.0.0.1:27017/react_blog",
       options: {
-        useNewUrlParser: true
+        useNewUrlParser: true, useUnifiedTopology: true
       }
     }
   };

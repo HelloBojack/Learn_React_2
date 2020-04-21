@@ -9,5 +9,10 @@ module.exports = {
   mongoose: {
     enable: true,
     package: "egg-mongoose"
-  }
+  },
+  // egg cors 跨域配置
+  cors: {
+    enable: true,
+    package: 'egg-cors',
+  },
 };

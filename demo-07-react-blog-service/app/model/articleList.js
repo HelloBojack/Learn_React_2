@@ -23,5 +23,5 @@ module.exports = app => {
     { versionKey: false }
   );
 
-  return mongoose.model("Article", ArticleSchema, "article"); // 我的理解：Article是指定查找的入口，随便取；ArticleSchema是参数；article是你数据集合表的名称
+  return mongoose.model("ArticleList", ArticleSchema, "articleList"); // 我的理解：Article是指定查找的入口，随便取；ArticleSchema是参数；article是你数据集合表的名称
 };

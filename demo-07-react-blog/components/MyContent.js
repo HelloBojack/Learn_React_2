@@ -6,10 +6,7 @@ import MyCardList from "./MyCardList";
 import React, { useContext } from 'react';
 import ReactDOM from "react-dom";
 
-import { TestContext } from '../pages/index'
-
 const MyContent = () => {
-  const datalist = useContext(TestContext);
   return (
     <Content style={{ padding: "0 50px" }}>
       <Breadcrumb style={{ margin: "16px 0" }}>
@@ -20,7 +17,6 @@ const MyContent = () => {
       <Layout className="site-layout-background" style={{ padding: "24px 0" }}>
         <MySider></MySider>
         <Content style={{ padding: "0 24px", minHeight: 500 }}>
-          {/* {datalist[0].title} */}
           <MyCardList></MyCardList>
         </Content>
       </Layout>
