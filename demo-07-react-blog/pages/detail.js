@@ -27,7 +27,6 @@ Detail.getInitialProps = async (context) => {
   // console.log(context.query.id)
   let id = context.query.id
   const promise = new Promise((resolve) => {
-
     axios('http://127.0.0.1:7001/articleList/' + id).then(
       (res) => {
         console.log(res.data)

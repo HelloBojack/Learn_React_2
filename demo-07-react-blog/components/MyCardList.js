@@ -66,7 +66,7 @@ const MyCardList = () => {
               title={<a href={item.href}>{item.title}</a>}
               description={item.description}
             />
-            {item.content}
+            {item.intro}
           </List.Item>
         </Link >
       )}
