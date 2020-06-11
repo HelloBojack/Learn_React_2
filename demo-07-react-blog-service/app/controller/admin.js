@@ -12,5 +12,10 @@ class AdminController extends Controller {
     const res = await ctx.service.admin.deleteArticleOne();
     ctx.body = res;
   }
+  async updateOne() {
+    const { ctx } = this;
+    const res = await ctx.service.admin.updateArticleOne();
+    ctx.body = res;
+  }
 }
 module.exports = AdminController;

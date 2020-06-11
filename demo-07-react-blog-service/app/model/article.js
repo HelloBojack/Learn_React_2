@@ -7,9 +7,17 @@ module.exports = app => {
   const ArticleSchema = new Schema(
     {
       // 修改和新增用到，规定字段得类型和其他条件等
-      title: {
-        type: String,
-        required: true
+      title: { type: String, },
+      tags: { type: Array },
+      browseNum: { type: Number, default: 0 },
+      likeNum: { type: Number, default: 0 },
+      commentNum: { type: Number, default: 0 },
+      pic: { type: String },
+      content: { type: String },
+      intro: { type: String },
+      visibility: {
+        type: Boolean,
+        default: true
       },
     },
     { versionKey: false }
