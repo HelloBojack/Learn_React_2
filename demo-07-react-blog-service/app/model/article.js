@@ -11,14 +11,6 @@ module.exports = app => {
         type: String,
         required: true
       },
-      _id: {
-        type: Schema.ObjectId,
-        ref: "Tags",
-        required: true
-      },
-      summary: {
-        type: String
-      }
     },
     { versionKey: false }
   );
