@@ -3,15 +3,14 @@
 const Service = require("egg").Service;
 
 class ArticleListService extends Service {
-  async getArticleList() {
+  async getArticleOne() {
     const { ctx, app } = this;
     try {
-
       let params = ctx.params;
       // console.log(params)
       const results = await ctx.model.ArticleList.find({
         // Article为modal/article.js里面命名的名字
-        id: parseInt(params.id)
+        _id: params.id
       });
       // console.log(results)
       if (results.length > 0) {
