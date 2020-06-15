@@ -17,5 +17,16 @@ class AdminController extends Controller {
     const res = await ctx.service.admin.updateArticleOne();
     ctx.body = res;
   }
+  async findAll() {
+    const { ctx } = this;
+    const res = await ctx.service.admin.getArticleAll();
+    ctx.body = res;
+  }
+  async findAllPage() {
+    const { ctx } = this;
+    const res = await ctx.service.admin.getArticleAllPage();
+    ctx.body = res;
+  }
+
 }
 module.exports = AdminController;

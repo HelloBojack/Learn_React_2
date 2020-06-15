@@ -16,8 +16,8 @@ module.exports = app => {
       content: { type: String },
       intro: { type: String },
       visibility: {
-        type: Boolean,
-        default: true
+        type: Number,
+        default: 1
       },
     },
     { versionKey: false }

@@ -14,7 +14,8 @@ class ArticleService extends Service {
       if (results.length > 0) {
         return {
           "results": true,
-          data: results
+          "data": results,
+          "msg": "获取文章成功"
         };
       }
 
@@ -27,13 +28,14 @@ class ArticleService extends Service {
     try {
       let params = ctx.request.body;
       let { pageNo, pageSize } = params;
-      let totalNum = await this.ctx.model.Article.find({}).countDocuments();
-      const results = await this.ctx.model.Article.find({}).skip((pageNo - 1) * pageSize).limit(pageSize);
+      let totalNum = await this.ctx.model.Article.find({ "visibility": 1 }).countDocuments();
+      const results = await this.ctx.model.Article.find({ "visibility": 1 }).skip((pageNo - 1) * pageSize).limit(pageSize);
       if (results.length > 0) {
         return {
           "results": true,
           "totalNum": totalNum,
-          "data": results
+          "data": results,
+          "msg": "获取文章成功"
         };
       }
 
@@ -41,20 +43,6 @@ class ArticleService extends Service {
       ctx.body = JSON.stringify(err);
     }
   }
-  async getArticleAll() {
-    const { ctx, app } = this;
-    try {
-      const results = await ctx.model.Article.find({});
-      if (results.length > 0) {
-        return {
-          "results": true,
-          data: results
-        };
-      }
 
-    } catch (err) {
-      ctx.body = JSON.stringify(err);
-    }
-  }
 }
 module.exports = ArticleService;

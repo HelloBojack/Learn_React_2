@@ -4,6 +4,4 @@ module.exports = app => {
   router.get("/article/:id", controller.article.findOne);
   // 获取分页文章
   router.post("/articlePage", controller.article.findPage);
-  // 获取所有文章
-  router.get("/articleAll", controller.article.findAll);
 };
