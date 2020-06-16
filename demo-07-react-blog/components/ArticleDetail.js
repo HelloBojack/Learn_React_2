@@ -17,7 +17,7 @@ const MyContent = withRouter(props => {
   marked.setOptions({
     renderer: renderer,
     highlight: function (code) {
-      console.log(code)
+      // console.log(code)
       return hljs.highlightAuto(code).value;
     },
     pedantic: false,

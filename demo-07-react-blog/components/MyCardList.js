@@ -1,4 +1,4 @@
-import { List, Avatar } from "antd";
+import { List, Avatar, Tag } from "antd";
 import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 import Router from "next/router";
 import React, { useContext } from 'react';
@@ -31,7 +31,7 @@ const MyCardList = () => {
       </div>
       }
       renderItem={item => (
-        <Link href={{ pathname: 'detail', query: { id: item.id } }}>
+        <Link href={{ pathname: 'detail', query: { id: item._id } }}>
           <List.Item
             style={{ cursor: "pointer" }}
             // onClick={() => Router.push("/detail?id=" + item.id)}
@@ -66,7 +66,17 @@ const MyCardList = () => {
               title={<a href={item.href}>{item.title}</a>}
               description={item.description}
             />
-            {item.intro}
+            <div>
+              {item.intro}
+              {/* {
+              item.tags.map((it, index) => {
+                return <div key={index}>{it}</div>
+              })
+            } */}
+            </div>
+
+
+
           </List.Item>
         </Link >
       )}
