@@ -6,12 +6,6 @@ export async function queryFakeList(params) {
     params,
   });
 }
-export async function queryRule(params) {
-  return request('/myserver/articleAllPage', {
-    method: "POST",
-    // params,
-  });
-}
 export async function removeRule(params) {
   return request('/api/rule', {
     method: 'POST',

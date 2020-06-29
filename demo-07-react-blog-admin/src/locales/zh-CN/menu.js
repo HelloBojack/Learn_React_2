@@ -28,6 +28,7 @@ export default {
   'menu.list.search-list': '搜索列表',
   'menu.list.articles-list': '文章列表',
   'menu.list.articles': '文章列表',
+  'menu.articles-list': '文章列表',
   'menu.list.search-list.projects': '搜索列表（项目）',
   'menu.list.search-list.applications': '搜索列表（应用）',
   'menu.profile': '详情页',

@@ -8,6 +8,7 @@ const Model = {
   effects: {
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryFakeList, payload);
+      // console.log(payload)
       // console.log(response.data)
       yield put({
         type: 'queryList',

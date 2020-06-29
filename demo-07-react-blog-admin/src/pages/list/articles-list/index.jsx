@@ -16,7 +16,7 @@ const ArticlesList = ({ dispatch, articlesList: { list }, loading }) => {
       type: 'articlesList/fetch',
       payload: {
         "pageNo": 1,
-        "pageSize": 10
+        "pageSize": 1
       },
     });
   }, []);
@@ -94,7 +94,7 @@ const ArticlesList = ({ dispatch, articlesList: { list }, loading }) => {
       align: 'center',
       render: visibility => (
         <>
-          {visibility}
+          {visibility == 1 ? (<div>显示</div>) : (<div>隐藏</div>)}
         </>
       ),
     },
