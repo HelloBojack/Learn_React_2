@@ -3,7 +3,7 @@ import request from 'umi-request';
 export async function queryFakeList(params) {
   return request('/myserver/articleAllPage', {
     method: "POST",
-    params,
+    data: { ...params },
   });
 }
 export async function removeRule(params) {

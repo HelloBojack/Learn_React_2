@@ -95,6 +95,7 @@ class AdminService extends Service {
     const { ctx, app } = this;
     try {
       let params = ctx.request.body;
+      let query = this.ctx.query;
       let { pageNo, pageSize } = params;
       console.log(params)
       let totalNum = await this.ctx.model.Article.find({}).countDocuments();
@@ -102,6 +103,8 @@ class AdminService extends Service {
       if (results.length > 0) {
         return {
           "results": true,
+          "params": params,
+          "query": query,
           "totalNum": totalNum,
           "data": results,
           "msg": "获取文章成功"

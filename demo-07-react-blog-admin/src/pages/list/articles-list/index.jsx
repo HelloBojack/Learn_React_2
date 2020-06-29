@@ -8,18 +8,33 @@ import { connect } from 'umi';
 // import UpdateForm from './components/UpdateForm';
 import { queryRule, updateRule, addRule, removeRule } from './service';
 import styles from './style.less';
-const ArticlesList = ({ dispatch, articlesList: { list }, loading }) => {
-  // const [form] = Form.useForm();
-  // console.log(list)
+const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
+  const [pageNo, setpageNo] = useState(1);
+  const pageNoRecent = useRef('');
+  const defaultPageSize = 5
+
   useEffect(() => {
     dispatch({
       type: 'articlesList/fetch',
-      payload: {
-        "pageNo": 1,
-        "pageSize": 1
-      },
+      payload: { pageSize: defaultPageSize, pageNo }
     });
   }, []);
+
+  const handlePageChange = (pagination) => {
+    pageNoRecent.current = pagination.current
+    setpageNo(pagination.current)
+    dispatch({
+      type: 'articlesList/fetch',
+      payload: { pageSize: defaultPageSize, pageNo: pageNoRecent.current }
+    });
+  }
+
+  const paginationProps = {
+    pageSize: defaultPageSize,
+    current: pageNo,
+    total: data.totalNum,
+  };
+
   const columns = [
     {
       title: '文章标题',
@@ -117,10 +132,16 @@ const ArticlesList = ({ dispatch, articlesList: { list }, loading }) => {
     },
   ];
 
-
   return (
-    <Table columns={columns} dataSource={list} scroll={{ x: 500 }} rowKey={(columns, index) => index}>
-
+    <Table
+      columns={columns}
+      dataSource={data.data}
+      scroll={{ x: 500 }}
+      rowKey={(columns, index) => index}
+      loading={loading}
+      pagination={paginationProps}
+      onChange={handlePageChange}
+    >
     </Table>
   )
 };
