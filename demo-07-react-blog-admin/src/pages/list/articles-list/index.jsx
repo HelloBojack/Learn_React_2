@@ -1,4 +1,4 @@
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+// import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Tooltip, Tag, Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'umi';
@@ -6,7 +6,6 @@ import { connect } from 'umi';
 // import ProTable from '@ant-design/pro-table';
 // import CreateForm from './components/CreateForm';
 // import UpdateForm from './components/UpdateForm';
-import { queryRule, updateRule, addRule, removeRule } from './service';
 import styles from './style.less';
 const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
   const [pageNo, setpageNo] = useState(1);
@@ -28,6 +27,12 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       payload: { pageSize: defaultPageSize, pageNo: pageNoRecent.current }
     });
   }
+  const deleteItem = _id => {
+    dispatch({
+      type: 'articlesList/removeFetch',
+      payload: _id,
+    });
+  };
 
   const paginationProps = {
     pageSize: defaultPageSize,
@@ -119,18 +124,19 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       fixed: 'right',
       align: 'center',
       width: 200,
-      render: () => (
+      render: (val, item, index) => (
         <div className={styles.actionDiv} >
-          <Button type="primary" size='small'>
+          <Button type="dashed" size='small'>
             编辑
           </Button>
-          <Button type="primary" size='small' danger>
-            显示/隐藏
-          </Button>
-        </div>
+          {item.visibility == 0 ? (<Button type="primary" size='small' >显示</Button>) : (<Button type="primary" size='small' danger onClick={() => deleteItem(item._id)}>隐藏</Button>)}
+        </div >
       ),
     },
   ];
+
+
+
 
   return (
     <Table

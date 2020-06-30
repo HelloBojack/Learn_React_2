@@ -17,7 +17,7 @@ class AdminService extends Service {
       })
       var results = await article.save();
       return {
-        "results": true,
+        "result": true,
         "msg": "添加文章成功"
       };
     } catch (err) {
@@ -34,14 +34,20 @@ class AdminService extends Service {
         const results = await this.ctx.model.Article.updateOne({ _id: params.id }, { "visibility": 0 })
         // const results = await this.ctx.model.Article.deleteOne({_id: params.id})
         return {
-          "results": true,
-          "msg": "删除文章成功"
+          "result": true,
+          "data": {
+            _id: params.id
+          },
+          "msg": "隐藏文章成功"
         };
       }
       else {
         return {
-          "results": false,
-          "msg": "删除文章失败，无该文章id"
+          "result": false,
+          "data": {
+            _id: params.id
+          },
+          "msg": "隐藏文章失败，无该文章id"
         };
       }
     } catch (err) {
@@ -58,14 +64,14 @@ class AdminService extends Service {
       if (articleOne.length > 0) {
         const results = await this.ctx.model.Article.updateOne({ _id: id }, params)
         return {
-          "results": true,
+          "result": true,
           "data": params,
           "msg": "编辑文章成功"
         };
       }
       else {
         return {
-          "results": false,
+          "result": false,
           "msg": "编辑文章失败，无该文章id"
         };
       }
@@ -81,7 +87,7 @@ class AdminService extends Service {
       const results = await ctx.model.Article.find({});
       if (results.length > 0) {
         return {
-          "results": true,
+          "result": true,
           "totalNum": totalNum,
           "data": results
         };
@@ -102,9 +108,9 @@ class AdminService extends Service {
       const results = await this.ctx.model.Article.find({}).skip((pageNo - 1) * pageSize).limit(pageSize);
       if (results.length > 0) {
         return {
-          "results": true,
-          "params": params,
-          "query": query,
+          "result": true,
+          // "params": params,
+          // "query": query,
           "totalNum": totalNum,
           "data": results,
           "msg": "获取文章成功"

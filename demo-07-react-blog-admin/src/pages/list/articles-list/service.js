@@ -1,15 +1,14 @@
 import request from 'umi-request';
 
-export async function queryFakeList(params) {
+export async function queryList(params) {
   return request('/myserver/articleAllPage', {
     method: "POST",
     data: { ...params },
   });
 }
-export async function removeRule(params) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: { ...params, method: 'delete' },
+export async function removeItem(params) {
+  return request(`/myserver/article/${params}`, {
+    method: 'DELETE',
   });
 }
 export async function addRule(params) {
