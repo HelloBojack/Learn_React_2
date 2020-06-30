@@ -63,9 +63,10 @@ class AdminService extends Service {
       let articleOne = await this.ctx.model.Article.find({ _id: id });
       if (articleOne.length > 0) {
         const results = await this.ctx.model.Article.updateOne({ _id: id }, params)
+        let articleOneAfter = await this.ctx.model.Article.find({ _id: id });
         return {
           "result": true,
-          "data": params,
+          "data": articleOneAfter,
           "msg": "编辑文章成功"
         };
       }

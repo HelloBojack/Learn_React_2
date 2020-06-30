@@ -11,6 +11,16 @@ export async function removeItem(params) {
     method: 'DELETE',
   });
 }
+
+export async function toggleItem(params) {
+  return request(`/myserver/article/${params.id}`, {
+    method: 'PUT',
+    data: {
+      visibility: params.visibility
+    }
+  });
+}
+
 export async function addRule(params) {
   return request('/api/rule', {
     method: 'POST',

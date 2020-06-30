@@ -1,4 +1,4 @@
-import { queryList, removeItem } from './service';
+import { queryList, removeItem, toggleItem } from './service';
 
 const Model = {
   namespace: 'articlesList',
@@ -14,14 +14,21 @@ const Model = {
       });
     },
 
-    *removeFetch({ payload }, { call, put }) {
-      const response = yield call(removeItem, payload);
+    // *removeFetch({ payload }, { call, put }) {
+    //   const response = yield call(removeItem, payload);
+    //   yield put({
+    //     type: 'removeItem',
+    //     payload: response,
+    //   });
+    // },
+
+    *toggleFetch({ payload }, { call, put }) {
+      const response = yield call(toggleItem, payload);
       yield put({
-        type: 'removeItem',
+        type: 'toggleItem',
         payload: response,
       });
     },
-
     // *appendFetch({ payload }, { call, put }) {
     //   const response = yield call(queryFakeList, payload);
     //   yield put({
@@ -34,14 +41,19 @@ const Model = {
     queryList(state, action) {
       return { ...state, data: action.payload };
     },
-    removeItem(state, action) {
-      console.log(state)
-      console.log(action.payload)
-      if (action.payload.result) {
-
-      }
-      // return { ...state, data: action.payload };
+    toggleItem(state, action) {
+      let id = action.payload.data[0]._id
+      let newDate = state.data
+      newDate.data.map(n => {
+        if (n._id == id) {
+          n.visibility = n.visibility == 0 ? 1 : 0;
+        }
+        return n
+      })
+      return { ...state, data: newDate };
     },
+
+
     // appendList(state, action) {
     //   return { ...state, list: state.list.concat(action.payload) };
     // },

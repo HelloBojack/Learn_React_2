@@ -27,10 +27,13 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       payload: { pageSize: defaultPageSize, pageNo: pageNoRecent.current }
     });
   }
-  const deleteItem = _id => {
+  const toggleItem = (id, visibility) => {
     dispatch({
-      type: 'articlesList/removeFetch',
-      payload: _id,
+      type: 'articlesList/toggleFetch',
+      payload: {
+        id,
+        visibility
+      },
     });
   };
 
@@ -129,7 +132,7 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
           <Button type="dashed" size='small'>
             编辑
           </Button>
-          {item.visibility == 0 ? (<Button type="primary" size='small' >显示</Button>) : (<Button type="primary" size='small' danger onClick={() => deleteItem(item._id)}>隐藏</Button>)}
+          {item.visibility == 0 ? (<Button type="primary" size='small' onClick={() => toggleItem(item._id, 1)} > 显示</Button>) : (<Button type="primary" size='small' danger onClick={() => toggleItem(item._id, 0)}>隐藏</Button>)}
         </div >
       ),
     },
