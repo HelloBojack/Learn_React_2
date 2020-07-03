@@ -1,9 +1,9 @@
 // import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Tooltip, Tag, Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
-import { connect, Link } from 'umi';
+import { connect, Link, FormattedMessage } from 'umi';
 // import router from 'umi/router';
-// import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 // import ProTable from '@ant-design/pro-table';
 // import CreateForm from './components/CreateForm';
 // import UpdateForm from './components/UpdateForm';
@@ -138,7 +138,7 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       render: (val, item, index) => (
         <div className={styles.actionDiv} >
           <Link to={{
-            pathname: '/form/article-form/' + item._id,
+            pathname: '/form/article-form/?' + item._id,
           }}>
             <Button type="dashed" size='small'
             // onClick={() => editItem(item._id)}
@@ -156,16 +156,20 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
 
 
   return (
-    <Table
-      columns={columns}
-      dataSource={data.data}
-      scroll={{ x: 500 }}
-      rowKey={(columns, index) => index}
-      loading={loading}
-      pagination={paginationProps}
-      onChange={handlePageChange}
+    <PageHeaderWrapper
+    // content={<FormattedMessage id="formandbasic-form.basic.description" />}
     >
-    </Table>
+      <Table
+        columns={columns}
+        dataSource={data.data}
+        scroll={{ x: 500 }}
+        rowKey={(columns, index) => index}
+        loading={loading}
+        pagination={paginationProps}
+        onChange={handlePageChange}
+      >
+      </Table>
+    </PageHeaderWrapper >
   )
 };
 

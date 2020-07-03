@@ -1,7 +1,7 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Card, DatePicker, Input, Form, InputNumber, Radio, Select, Tooltip } from 'antd';
 import { connect, FormattedMessage, formatMessage } from 'umi';
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import styles from './style.less';
 
@@ -10,8 +10,9 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-const BasicForm = props => {
-  const { submitting } = props;
+const BasicForm = ({ dispatch, articleForm: { data }, loading }) => {
+
+  // const { submitting } = props;
   const [form] = Form.useForm();
   const [showPublicUsers, setShowPublicUsers] = React.useState(false);
   const formItemLayout = {
@@ -48,6 +49,16 @@ const BasicForm = props => {
     },
   };
 
+  useEffect(() => {
+    // console.log(location)
+    console.log(location.search)
+    dispatch({
+      type: 'articleForm/fetch',
+      payload: location.search.replace('?', '')
+    });
+  }, []);
+
+
   const onFinish = values => {
     const { dispatch } = props;
     dispatch({
@@ -66,7 +77,9 @@ const BasicForm = props => {
   };
 
   return (
-    <PageHeaderWrapper content={<FormattedMessage id="formandbasic-form.basic.description" />}>
+    <PageHeaderWrapper
+    // content={<FormattedMessage id="formandbasic-form.article.description" />}
+    >
       <Card bordered={false}>
         <Form
           hideRequiredMark
@@ -291,7 +304,7 @@ const BasicForm = props => {
               marginTop: 32,
             }}
           >
-            <Button type="primary" htmlType="submit" loading={submitting}>
+            <Button type="primary" htmlType="submit">
               <FormattedMessage id="formandbasic-form.form.submit" />
             </Button>
             <Button
@@ -308,6 +321,7 @@ const BasicForm = props => {
   );
 };
 
-export default connect(({ loading }) => ({
-  submitting: loading.effects['formAndarticleForm/submitRegularForm'],
+export default connect(({ articleForm, loading }) => ({
+  articleForm,
+  loading: loading.models.formAndarticleForm,
 }))(BasicForm);
