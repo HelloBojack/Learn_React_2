@@ -1,7 +1,8 @@
 // import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Tooltip, Tag, Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
-import { connect } from 'umi';
+import { connect, Link } from 'umi';
+// import router from 'umi/router';
 // import { PageHeaderWrapper } from '@ant-design/pro-layout';
 // import ProTable from '@ant-design/pro-table';
 // import CreateForm from './components/CreateForm';
@@ -10,7 +11,7 @@ import styles from './style.less';
 const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
   const [pageNo, setpageNo] = useState(1);
   const pageNoRecent = useRef('');
-  const defaultPageSize = 5
+  const defaultPageSize = 10
 
   useEffect(() => {
     dispatch({
@@ -28,6 +29,13 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
     });
   }
   const toggleItem = (id, visibility) => {
+    if (visibility == 1) {
+      message.success('文章已显示');
+    }
+    else {
+      message.error('文章已隐藏');
+    }
+
     dispatch({
       type: 'articlesList/toggleFetch',
       payload: {
@@ -129,9 +137,15 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       width: 200,
       render: (val, item, index) => (
         <div className={styles.actionDiv} >
-          <Button type="dashed" size='small'>
-            编辑
+          <Link to={{
+            pathname: '/form/article-form/' + item._id,
+          }}>
+            <Button type="dashed" size='small'
+            // onClick={() => editItem(item._id)}
+            >
+              编辑
           </Button>
+          </Link>
           {item.visibility == 0 ? (<Button type="primary" size='small' onClick={() => toggleItem(item._id, 1)} > 显示</Button>) : (<Button type="primary" size='small' danger onClick={() => toggleItem(item._id, 0)}>隐藏</Button>)}
         </div >
       ),
