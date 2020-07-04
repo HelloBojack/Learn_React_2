@@ -10,7 +10,7 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-const BasicForm = ({ dispatch, articleForm: { data }, loading }) => {
+const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
 
   // const { submitting } = props;
   const [form] = Form.useForm();
@@ -50,12 +50,15 @@ const BasicForm = ({ dispatch, articleForm: { data }, loading }) => {
   };
 
   useEffect(() => {
-    // console.log(location)
-    console.log(location.search)
+
+    // console.log(location.search)
     dispatch({
       type: 'articleForm/fetch',
       payload: location.search.replace('?', '')
     });
+
+    console.log(data.data.title)
+
   }, []);
 
 
@@ -81,6 +84,7 @@ const BasicForm = ({ dispatch, articleForm: { data }, loading }) => {
     // content={<FormattedMessage id="formandbasic-form.article.description" />}
     >
       <Card bordered={false}>
+        {/* <div>{data.data}</div> */}
         <Form
           hideRequiredMark
           style={{
@@ -109,6 +113,7 @@ const BasicForm = ({ dispatch, articleForm: { data }, loading }) => {
             ]}
           >
             <Input
+              defaultValue={data.data.title}
               placeholder={formatMessage({
                 id: 'formandbasic-form.title.placeholder',
               })}
@@ -324,4 +329,4 @@ const BasicForm = ({ dispatch, articleForm: { data }, loading }) => {
 export default connect(({ articleForm, loading }) => ({
   articleForm,
   loading: loading.models.formAndarticleForm,
-}))(BasicForm);
+}))(ArticleForm);

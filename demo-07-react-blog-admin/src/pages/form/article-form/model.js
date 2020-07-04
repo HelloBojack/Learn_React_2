@@ -4,7 +4,7 @@ import { queryArticle, fakeSubmitForm } from './service';
 const Model = {
   namespace: 'articleForm',
   state: {
-    data: {},
+    data: [],
   },
   effects: {
     *fetch({ payload }, { call, put }) {
@@ -13,6 +13,7 @@ const Model = {
         type: 'queryArticle',
         payload: response.result ? response : [],
       });
+      // console.log(response)
     },
 
 
@@ -24,6 +25,8 @@ const Model = {
   },
   reducers: {
     queryArticle(state, action) {
+      // console.log(action)
+      // console.log({ ...state, data: action.payload })
       return { ...state, data: action.payload };
     },
   },

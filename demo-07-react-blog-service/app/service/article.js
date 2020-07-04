@@ -7,14 +7,14 @@ class ArticleService extends Service {
     const { ctx, app } = this;
     try {
       let params = ctx.params;
-      const results = await ctx.model.Article.find({
+      const result = await ctx.model.Article.findOne({
         // Article为modal/article.js里面命名的名字
         _id: params.id
       });
-      if (results.length > 0) {
+      if (result) {
         return {
-          "results": true,
-          "data": results,
+          "result": true,
+          "data": result,
           "msg": "获取文章成功"
         };
       }
@@ -32,7 +32,7 @@ class ArticleService extends Service {
       const results = await this.ctx.model.Article.find({ "visibility": 1 }).skip((pageNo - 1) * pageSize).limit(pageSize);
       if (results.length > 0) {
         return {
-          "results": true,
+          "result": true,
           "totalNum": totalNum,
           "data": results,
           "msg": "获取文章成功"

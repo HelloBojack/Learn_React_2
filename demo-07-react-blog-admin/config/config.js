@@ -105,7 +105,7 @@ export default defineConfig({
               icon: 'form',
               // name: 'form',
 
-              name: 'article-form',
+              name: '编辑文章',
               // icon: 'smile',
               path: '/form/article-form/:id',
               component: './form/article-form',
@@ -140,7 +140,7 @@ export default defineConfig({
             },
             {
 
-              name: 'articles-list',
+              name: '文章列表',
               icon: 'table',
               path: '/list/articles-list',
               component: './list/articles-list',
