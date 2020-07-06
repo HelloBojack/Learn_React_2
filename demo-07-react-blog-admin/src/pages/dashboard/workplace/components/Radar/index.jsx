@@ -18,7 +18,7 @@ class Radar extends Component {
     this.getLegendData();
   }
 
-  componentDidUpdate(preProps) {
+  UNSAFE_componentWillUpdate(preProps) {
     const { data } = this.props;
 
     if (data !== preProps.data) {

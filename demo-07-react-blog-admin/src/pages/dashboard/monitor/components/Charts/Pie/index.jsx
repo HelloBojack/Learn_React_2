@@ -54,7 +54,7 @@ class Pie extends Component {
     );
   }
 
-  componentDidUpdate(preProps) {
+  UNSAFE_componentWillUpdate(preProps) {
     const { data } = this.props;
 
     if (data !== preProps.data) {

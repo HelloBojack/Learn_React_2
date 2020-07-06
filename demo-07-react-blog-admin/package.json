@@ -32,13 +32,23 @@
     "test:component": "umi test ./src/components",
     "tsc": "tsc"
   },
-  "husky": { "hooks": { "pre-commit": "npm run lint-staged" } },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write"]
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
     "@ant-design/pro-layout": "^5.0.8",
@@ -66,8 +76,8 @@
     "path-to-regexp": "2.4.0",
     "prop-types": "^15.5.10",
     "qs": "^6.9.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "react-fittext": "^1.0.0",
     "react-helmet-async": "^1.0.4",
     "react-router": "^4.3.1",
@@ -109,7 +119,9 @@
     "puppeteer-core": "^2.1.1",
     "stylelint": "^13.0.0"
   },
-  "engines": { "node": ">=10.0.0" },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "checkFiles": [
     "src/**/*.js*",
     "src/**/*.ts*",

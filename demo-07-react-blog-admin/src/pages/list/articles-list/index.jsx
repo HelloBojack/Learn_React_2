@@ -1,8 +1,8 @@
 // import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Table, Tooltip, Tag, Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useState, useRef, useEffect } from 'react';
-import { connect, Link, FormattedMessage } from 'umi';
-// import router from 'umi/router';
+import { connect, Link, router, FormattedMessage } from 'umi';
+import { routerRedux } from 'dva';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 // import ProTable from '@ant-design/pro-table';
 // import CreateForm from './components/CreateForm';
@@ -106,7 +106,7 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       align: 'center',
       render: tags => (
         <>
-          {tags.map((tag, index) => {
+          {tags.split(',').map((tag, index) => {
             let color = ['geekblue', 'green', 'volcano'];
             return (
               <Tag color={color[index]} key={index}>
@@ -138,11 +138,9 @@ const ArticlesList = ({ dispatch, articlesList: { data }, loading }) => {
       render: (val, item, index) => (
         <div className={styles.actionDiv} >
           <Link to={{
-            pathname: '/form/article-form/?' + item._id,
+            pathname: '/list/articles-list/article-form/?' + item._id,
           }}>
-            <Button type="dashed" size='small'
-            // onClick={() => editItem(item._id)}
-            >
+            <Button type="dashed" size='small'>
               编辑
           </Button>
           </Link>

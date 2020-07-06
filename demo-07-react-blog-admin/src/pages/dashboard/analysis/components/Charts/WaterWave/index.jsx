@@ -31,7 +31,7 @@ class WaterWave extends Component {
     );
   }
 
-  componentDidUpdate(props) {
+  UNSAFE_componentWillUpdate(props) {
     const { percent } = this.props;
 
     if (props.percent !== percent) {

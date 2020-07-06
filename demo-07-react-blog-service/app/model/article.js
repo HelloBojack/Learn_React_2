@@ -8,7 +8,7 @@ module.exports = app => {
     {
       // 修改和新增用到，规定字段得类型和其他条件等
       title: { type: String, },
-      tags: { type: Array },
+      tags: { type: String },
       browseNum: { type: Number, default: 0 },
       likeNum: { type: Number, default: 0 },
       commentNum: { type: Number, default: 0 },

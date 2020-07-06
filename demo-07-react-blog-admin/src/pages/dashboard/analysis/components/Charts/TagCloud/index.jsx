@@ -36,7 +36,7 @@ class TagCloud extends Component {
     });
   }
 
-  componentDidUpdate(preProps) {
+  UNSAFE_componentWillUpdate(preProps) {
     const { data } = this.props;
 
     if (preProps && JSON.stringify(preProps.data) !== JSON.stringify(data)) {

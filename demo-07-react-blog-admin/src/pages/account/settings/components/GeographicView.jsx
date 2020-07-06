@@ -21,7 +21,7 @@ class GeographicView extends Component {
     }
   };
 
-  componentDidUpdate(props) {
+  UNSAFE_componentWillUpdate(props) {
     const { dispatch, value } = this.props;
 
     if (!props.value && !!value && !!value.province) {

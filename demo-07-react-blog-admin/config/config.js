@@ -107,8 +107,8 @@ export default defineConfig({
 
               name: '编辑文章',
               // icon: 'smile',
-              path: '/form/article-form/:id',
-              component: './form/article-form',
+              path: '/list/articles-list/article-form/:id',
+              component: './list/articles-list/article-form',
               hideInMenu: true,
 
               // routes: [
@@ -139,76 +139,24 @@ export default defineConfig({
               // ],
             },
             {
-
-              name: '文章列表',
+              name: '文章',
               icon: 'table',
-              path: '/list/articles-list',
-              component: './list/articles-list',
-
-              // path: '/list',
-              // icon: 'table',
-              // name: 'list',
-              // routes: [
-              // {
-              //   path: '/list/search',
-              //   name: 'search-list',
-              //   component: './list/search',
-              //   routes: [
-              //     {
-              //       path: '/list/search',
-              //       redirect: '/list/search/articles',
-              //     },
-              //     {
-              //       name: 'articles',
-              //       icon: 'smile',
-              //       path: '/list/search/articles',
-              //       component: './list/search/articles',
-              //     },
-              //     // {
-              //     //   name: 'projects',
-              //     //   icon: 'smile',
-              //     //   path: '/list/search/projects',
-              //     //   component: './list/search/projects',
-              //     // },
-              //     // {
-              //     //   name: 'applications',
-              //     //   icon: 'smile',
-              //     //   path: '/list/search/applications',
-              //     //   component: './list/search/applications',
-              //     // },
-              //   ],
-              // },
-              // {
-              //   name: 'articles',
-              //   icon: 'smile',
-              //   path: '/list/search/articles',
-              //   component: './list/search/articles',
-              // },
-              // {
-              //   name: 'articles-list',
-              //   icon: 'smile',
-              //   path: '/list/articles-list',
-              //   component: './list/articles-list',
-              // },
-              // {
-              //   name: 'table-list',
-              //   icon: 'smile',
-              //   path: '/list/table-list',
-              //   component: './list/table-list',
-              // },
-              // {
-              //   name: 'basic-list',
-              //   icon: 'smile',
-              //   path: '/list/basic-list',
-              //   component: './list/basic-list',
-              // },
-              // {
-              //   name: 'card-list',
-              //   icon: 'smile',
-              //   path: '/list/card-list',
-              //   component: './list/card-list',
-              // },
-              // ],
+              path: '/list',
+              routes: [
+                {
+                  icon: 'form',
+                  name: '文章列表',
+                  path: '/list/articles-list',
+                  component: './list/articles-list',
+                },
+                {
+                  icon: 'form',
+                  name: '编辑文章',
+                  path: '/list/articles-list/article-form/:id',
+                  component: './list/articles-list/article-form',
+                  hideInMenu: true,
+                },
+              ]
             },
             // {
             //   path: '/profile',

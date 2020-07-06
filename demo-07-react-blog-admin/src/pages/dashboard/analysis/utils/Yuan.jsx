@@ -11,7 +11,7 @@ export default class Yuan extends React.Component {
     this.renderToHtml();
   }
 
-  componentDidUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.renderToHtml();
   }
 
