@@ -11,7 +11,17 @@ const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
-
+  useEffect(() => {
+    // console.log(location)
+    // console.log(match)
+    dispatch({
+      type: 'articleForm/fetch',
+      payload: location.search.replace('?', '')
+    });
+    // console.log(data)
+    // console.log(data.data)
+    // console.log(data.data.title)
+  }, []);
   // const { submitting } = props;
   const [form] = Form.useForm();
   const [showPublicUsers, setShowPublicUsers] = React.useState(false);
@@ -49,17 +59,7 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
     },
   };
 
-  useEffect(() => {
 
-    // console.log(location.search)
-    dispatch({
-      type: 'articleForm/fetch',
-      payload: location.search.replace('?', '')
-    });
-
-    console.log(data.data.title)
-
-  }, []);
 
 
   const onFinish = values => {
@@ -84,7 +84,6 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
     // content={<FormattedMessage id="formandbasic-form.article.description" />}
     >
       <Card bordered={false}>
-        {/* <div>{data.data}</div> */}
         <Form
           hideRequiredMark
           style={{
@@ -92,16 +91,16 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
           }}
           form={form}
           name="basic"
-          initialValues={{
-            public: '1',
-          }}
+          // initialValues={{
+          //   public: '1',
+          // }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           onValuesChange={onValuesChange}
         >
           <FormItem
             {...formItemLayout}
-            label={<FormattedMessage id="formandbasic-form.title.label" />}
+            label="文章标题"
             name="title"
             rules={[
               {
@@ -113,13 +112,13 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
             ]}
           >
             <Input
-              defaultValue={data.data.title}
+              // defaultValue={data.data.title}
               placeholder={formatMessage({
                 id: 'formandbasic-form.title.placeholder',
               })}
             />
           </FormItem>
-          <FormItem
+          {/* <FormItem
             {...formItemLayout}
             label={<FormattedMessage id="formandbasic-form.date.label" />}
             name="date"
@@ -145,11 +144,11 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
                 }),
               ]}
             />
-          </FormItem>
+          </FormItem> */}
           <FormItem
             {...formItemLayout}
-            label={<FormattedMessage id="formandbasic-form.goal.label" />}
-            name="goal"
+            label="文章内容"
+            name="content"
             rules={[
               {
                 required: true,
@@ -167,12 +166,14 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
                 id: 'formandbasic-form.goal.placeholder',
               })}
               rows={4}
-            />
+            >
+              {/* {data.data.content} */}
+            </TextArea >
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label={<FormattedMessage id="formandbasic-form.standard.label" />}
-            name="standard"
+            label="文章简介"
+            name="into"
             rules={[
               {
                 required: true,
@@ -186,11 +187,11 @@ const ArticleForm = ({ dispatch, articleForm: { data }, loading }) => {
               style={{
                 minHeight: 32,
               }}
-              placeholder={formatMessage({
-                id: 'formandbasic-form.standard.placeholder',
-              })}
+              // placeholder={data.data.intro}
               rows={4}
-            />
+            >
+              {/* {data.data.into} */}
+            </TextArea>
           </FormItem>
           <FormItem
             {...formItemLayout}
