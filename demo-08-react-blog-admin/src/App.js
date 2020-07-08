@@ -1,17 +1,18 @@
 // 根组件
 import React from 'react'
-import { Button } from 'antd'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import Admin from './pages/admin/Admin'
+import Login from './pages/login/Login'
 
 function App() {
   return <div>
-
-    <Button type="primary">Primary Button</Button>
-    <Button>Default Button</Button>
-    <Button type="dashed">Dashed Button</Button>
-    <br />
-    <Button type="text">Text Button</Button>
-    <Button type="link">Link Button</Button>
-
+    <Router>
+      <Switch>
+        <Route path='/login' component={Login}></Route>
+        <Route path='/' component={Admin}></Route>
+      </Switch>
+    </Router>
   </div>
 }
 
