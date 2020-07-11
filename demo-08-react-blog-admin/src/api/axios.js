@@ -24,7 +24,9 @@ switch (process.env.NODE_ENV) {
     axios.defaults.baseURL = ""
     break
   case "development":
-    axios.defaults.baseURL = ""
+    axios.defaults.baseURL = "http://:127.0.0.1:7001"
+    break
+  default:
     break
 }
 // 设置超时时间&跨域是否携带cookie
@@ -32,7 +34,12 @@ axios.defaults.timeout = 10000; // 10s
 axios.defaults.withCredentials = true;
 // 设置服务器要求格式，POST请求头&请求数据格式
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.transformRequest = date => qs.stringify(data)
+// axios.defaults.transformRequest = date => qs.stringify(data)
+axios.defaults.transformRequest = function (data) {
+  data = qs.stringify(data);
+  // data = JSON.stringify(data);
+  return data;
+};
 // 设置请求拦截器，携带token
 // Token校验（JWT）
 // 接收到服务器返回的Token，存储到redux/vuex/localstroge/cookie
@@ -67,7 +74,7 @@ axios.interceptors.response.use(response => {
       case 404:
         // 
         break
-      case 401:
+      default:
         break
     }
   }
@@ -83,4 +90,61 @@ axios.interceptors.response.use(response => {
   }
 })
 
-export default axios;
+
+/**
+ * get方法，对应get请求
+ * @param {String} url [请求的url地址]
+ * @param {Object} params [请求时携带的参数]
+ */
+// export function get(url, params) {
+//   return new Promise((resolve, reject) => {
+//     axios.get(url, {
+//       params: params
+//     }).then(response => {
+//       resolve(response.data);
+//     }).catch(err => {
+//       reject(err)
+//     })
+//   });
+// }
+
+// export function get(url, params = {}) {
+//   return new Promise((resolve, reject) => {
+//     axios.get(url, {
+//       params: params
+//     })
+//       .then(response => {
+//         resolve(response.data);
+//       })
+//       .catch(err => {
+//         reject(err)
+//       })
+//   })
+// }
+/**
+ * post方法，对应post请求
+ * @param {String} url [请求的url地址]
+ * @param {Object} params [请求时携带的参数]
+ */
+// export function post(url, params) {
+//   return new Promise((resolve, reject) => {
+//     axios.post(url, qs.stringify(params))
+//       .then(response => {
+//         resolve(response.data);
+//       })
+//       .catch(err => {
+//         reject(err)
+//       })
+//   });
+// }
+export function post(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, qs.stringify(params))
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err.data)
+      })
+  });
+}

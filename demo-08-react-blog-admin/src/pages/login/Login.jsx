@@ -2,8 +2,9 @@ import React from 'react'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-
 import './login.css'
+
+import { LoginIn } from '../../api/api'
 
 function Login() {
   // const onFinish = values => {
@@ -26,6 +27,7 @@ function Login() {
     try {
       const values = await form.validateFields();
       console.log('Success:', values);
+      LoginIn(values)
     } catch (errorInfo) {
       console.log('Failed:', errorInfo);
     }
