@@ -24,9 +24,10 @@ switch (process.env.NODE_ENV) {
     axios.defaults.baseURL = ""
     break
   case "development":
-    axios.defaults.baseURL = "http://:127.0.0.1:7001"
+    axios.defaults.baseURL = "http://127.0.0.1:7001/"
     break
   default:
+    axios.defaults.baseURL = "http://127.0.0.1:7001/"
     break
 }
 // 设置超时时间&跨域是否携带cookie
@@ -66,13 +67,16 @@ axios.interceptors.response.use(response => {
       case 401:
         // 未登录
         // 提示未登录，跳转登录页
+        console.log(401)
         break
       case 403:
         // Toke过期
         // 重置token，跳转登录页
+        console.log(403)
         break
       case 404:
         // 
+        console.log(404)
         break
       default:
         break
@@ -84,7 +88,7 @@ axios.interceptors.response.use(response => {
     // 客户端断网
     if (!window.navigator.onLine) {
       // 跳转断网页面
-      return;
+      console.log('offLine')
     }
     return Promise.reject(error)
   }
@@ -141,9 +145,11 @@ export function post(url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, qs.stringify(params))
       .then(res => {
+        console.log(res)
         resolve(res.data);
       })
       .catch(err => {
+        console.log(err)
         reject(err.data)
       })
   });
