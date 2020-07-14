@@ -24,16 +24,20 @@ class UserService extends Service {
         // })
 
       }
-      // else {
-      //     user._doc.role = { menus: [] }
-      //     // 返回登陆成功信息(包含user)
-      //     return {
-      //       "result": true,
-      //       "msg": "登陆成功",
-      //       "data": user
-      //     }
-      //   }
-      // }
+      else {
+        //     user._doc.role = { menus: [] }
+        //     // 返回登陆成功信息(包含user)
+        //     return {
+        //       "result": true,
+        //       "msg": "登陆成功",
+        //       "data": user
+        //     }
+        //   }
+        return {
+          "result": false,
+          "msg": "登陆失败",
+        }
+      }
     } catch (err) {
       console.log(err)
       return {

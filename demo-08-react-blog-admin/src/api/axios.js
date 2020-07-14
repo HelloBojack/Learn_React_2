@@ -32,15 +32,15 @@ switch (process.env.NODE_ENV) {
 }
 // 设置超时时间&跨域是否携带cookie
 axios.defaults.timeout = 10000; // 10s
-axios.defaults.withCredentials = true;
-// 设置服务器要求格式，POST请求头&请求数据格式
+// axios.defaults.withCredentials = true;
+// // 设置服务器要求格式，POST请求头&请求数据格式
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-// axios.defaults.transformRequest = date => qs.stringify(data)
-axios.defaults.transformRequest = function (data) {
-  data = qs.stringify(data);
-  // data = JSON.stringify(data);
-  return data;
-};
+// // axios.defaults.transformRequest = date => qs.stringify(data)
+// axios.defaults.transformRequest = function (data) {
+//   data = qs.stringify(data);
+//   // data = JSON.stringify(data);
+//   return data;
+// };
 // 设置请求拦截器，携带token
 // Token校验（JWT）
 // 接收到服务器返回的Token，存储到redux/vuex/localstroge/cookie
@@ -145,12 +145,41 @@ export function post(url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, qs.stringify(params))
       .then(res => {
-        console.log(res)
-        resolve(res.data);
+        // console.log(res)
+        resolve(res);
       })
       .catch(err => {
-        console.log(err)
-        reject(err.data)
+        // console.log(err)
+        reject(err)
       })
   });
 }
+
+// let http = {
+//   post: "",
+//   get: ""
+// };
+
+// http.post = function (api, data) {
+//   let params = qs.stringify(data);
+//   return new Promise((resolve, reject) => {
+//     axios.post(api, params).then((res) => {
+//       resolve(res)
+//     }).catch(err => {
+//       reject(err)
+//     })
+//   })
+// };
+
+// http.get = function (api, data) {
+//   let params = qs.stringify(data);
+//   return new Promise((resolve, reject) => {
+//     axios.get(api, params).then((res) => {
+//       resolve(res);
+//     }).catch(err => {
+//       reject(err)
+//     })
+//   })
+// };
+
+// export default http

@@ -1,15 +1,13 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './login.css'
 
 import { LoginIn } from '../../api/api'
 
-function Login() {
-  // const onFinish = values => {
-  //   console.log('Received values of form: ', values);
-  // };
+function Login(props) {
+  const { history } = props;
   const [form] = Form.useForm();
 
 
@@ -26,10 +24,16 @@ function Login() {
   const onCheck = async () => {
     try {
       const values = await form.validateFields();
-      console.log('Success:', values);
-      LoginIn(values)
+      let result = await LoginIn(values)
+      if (result.result) {
+        message.success('登录成功！');
+        history.push("/");
+      }
+      else {
+        message.error('登录失败！');
+      }
     } catch (errorInfo) {
-      console.log('Failed:', errorInfo);
+      message.error('登录失败');
     }
   };
 
