@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import './login.css'
+import './Login.css'
 
 import { LoginIn } from '../../api/api'
 

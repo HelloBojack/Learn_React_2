@@ -6,14 +6,14 @@ import Admin from './pages/admin/Admin'
 import Login from './pages/login/Login'
 
 function App() {
-  return <div>
+  return <>
     <Router>
       <Switch>
         <Route path='/login' component={Login}></Route>
         <Route path='/' component={Admin}></Route>
       </Switch>
     </Router>
-  </div>
+  </>
 }
 
 export default App
