@@ -1,40 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-
-import './Login.css'
-
+// import { Redirect } from 'react-router-dom'
 import { LoginIn } from '../../api/api'
+import storageUtils from '../../utils/storageUtils'
+import memoryUtils from '../../utils/memoryUtils'
+import './Login.css'
 
 function Login(props) {
   const { history } = props;
   const [form] = Form.useForm();
 
-
-  // form.validateFields(async (err, values) => {
-  //   if (!err) { // 校验成功 
-  //     // const { username, password } = values
-  //     // console.log('提交登陆请求', username, password)
-  //   } else { // 校验失败 
-  //     console.log(err)
-  //   }
-  // })
-
-
-  const onCheck = async () => {
-    try {
-      const values = await form.validateFields();
-      let result = await LoginIn(values)
-      if (result.result) {
-        message.success('登录成功！');
-        history.push("/");
-      }
-      else {
-        message.error('登录失败！');
-      }
-    } catch (errorInfo) {
-      message.error('登录失败');
+  useEffect(() => {
+    const user = storageUtils.getUser()
+    if (user && user._id) {
+      memoryUtils.user = user
     }
+    if (memoryUtils.user && memoryUtils.user._id) {
+      history.replace("/");
+    }
+  }, []);
+
+  const onFinish = async (values) => {
+    let result = await LoginIn(values)
+    if (result.result) {
+      message.success('登录成功！');
+      // 不需要后退使用replace
+      const user = result.data
+      storageUtils.saveUser(user)
+      memoryUtils.user = user
+
+      history.replace("/");
+    }
+    else {
+      message.error('登录失败！');
+    }
+  };
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
+    message.error('登录失败！');
   };
 
   return <>
@@ -43,6 +47,8 @@ function Login(props) {
       name="normal_login"
       className="login-form"
       initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
     >
       <div className="login_title" >
         <span>登录你的账号</span>
@@ -87,7 +93,9 @@ function Login(props) {
       </Form.Item> */}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button" onClick={() => { onCheck() }}>
+        <Button type="primary" htmlType="submit" className="login-form-button"
+        // onClick={() => { onCheck() }}
+        >
           登录
         </Button>
         {/* Or <a href="">register now!</a> */}

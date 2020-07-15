@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
@@ -10,10 +10,24 @@ import {
 
 import './Admin.css'
 
+import storageUtils from '../../utils/storageUtils'
+import memoryUtils from '../../utils/memoryUtils'
+
 const { Header, Sider, Content } = Layout;
 
-function Admin() {
+function Admin(props) {
+  const { history } = props;
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const user = storageUtils.getUser()
+    if (user && user._id) {
+      memoryUtils.user = user
+    }
+    else {
+      history.replace("/login");
+    }
+  }, []);
 
   const setCollapsedFun = () => {
     setCollapsed(!collapsed)
@@ -22,7 +36,7 @@ function Admin() {
     <Layout style={{ height: '100%' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" >
-          <img src="//img10.360buyimg.com/imgzone/jfs/t1/142010/24/2905/5859/5f0d7ae4E9b3644c7/511d68dece1b455f.png" alt="" />
+          {/* <img src="//img10.360buyimg.com/imgzone/jfs/t1/142010/24/2905/5859/5f0d7ae4E9b3644c7/511d68dece1b455f.png" alt="" /> */}
         </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1" icon={<UserOutlined />}>

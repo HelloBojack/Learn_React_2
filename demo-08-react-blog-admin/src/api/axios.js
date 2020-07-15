@@ -1,5 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
+
+import { message } from 'antd'
 // axios.get(url, {
 //   params: {
 //   }
@@ -130,17 +132,6 @@ axios.interceptors.response.use(response => {
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
  */
-// export function post(url, params) {
-//   return new Promise((resolve, reject) => {
-//     axios.post(url, qs.stringify(params))
-//       .then(response => {
-//         resolve(response.data);
-//       })
-//       .catch(err => {
-//         reject(err)
-//       })
-//   });
-// }
 export function post(url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, qs.stringify(params))
@@ -150,36 +141,8 @@ export function post(url, params) {
       })
       .catch(err => {
         // console.log(err)
-        reject(err)
+        // reject(err)
+        message.error('请求出错：' + err.message)
       })
   });
 }
-
-// let http = {
-//   post: "",
-//   get: ""
-// };
-
-// http.post = function (api, data) {
-//   let params = qs.stringify(data);
-//   return new Promise((resolve, reject) => {
-//     axios.post(api, params).then((res) => {
-//       resolve(res)
-//     }).catch(err => {
-//       reject(err)
-//     })
-//   })
-// };
-
-// http.get = function (api, data) {
-//   let params = qs.stringify(data);
-//   return new Promise((resolve, reject) => {
-//     axios.get(api, params).then((res) => {
-//       resolve(res);
-//     }).catch(err => {
-//       reject(err)
-//     })
-//   })
-// };
-
-// export default http
