@@ -19,7 +19,7 @@ function Login(props) {
     if (memoryUtils.user && memoryUtils.user._id) {
       history.replace("/");
     }
-  }, []);
+  }, [history]);
 
   const onFinish = async (values) => {
     let result = await LoginIn(values)
