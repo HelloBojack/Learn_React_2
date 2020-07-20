@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom'
-import {
-  HomeOutlined,
-  UserOutlined
-} from '@ant-design/icons';
 
+import menuList from '../../config/menuConfig.jsx'
 import { Collapsed } from '../../store/context'
 // const { SubMenu } = Menu;
 const { Sider } = Layout;
+
+
 
 function LeftNav() {
   const collapsed = useContext(Collapsed);
@@ -31,15 +30,26 @@ function LeftNav() {
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
       >
-        <Menu.Item key="1" icon={<HomeOutlined />}>
+        {
+          menuList.map((item, index) => {
+            return <Menu.Item key={index + 1} icon={item.icon} >
+              <Link to={item.path}>
+                {item.title}
+              </Link>
+            </Menu.Item>
+          })
+        }
+
+
+        {/* <Menu.Item key="1" icon={<HomeOutlined />}>
           <Link to='/home'>
             主页
             </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         {/* <Menu.Item key="2" icon={<VideoCameraOutlined />}>
             nav 2
         </Menu.Item> */}
-        <Menu.Item key="/role" icon={<UserOutlined />}>
+        {/* <Menu.Item key="/role" icon={<UserOutlined />}>
           <Link to='/role'>
             角色管理
             </Link>
@@ -48,7 +58,7 @@ function LeftNav() {
           <Link to='/user'>
             用户管理
             </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         {/* <SubMenu
             key="sub1"
             title={
