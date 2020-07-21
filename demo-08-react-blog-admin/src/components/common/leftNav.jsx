@@ -1,16 +1,48 @@
 import React, { useContext } from 'react'
 import { Layout, Menu } from 'antd';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import menuList from '../../config/menuConfig.jsx'
 import { Collapsed } from '../../store/context'
+import SubMenu from 'antd/lib/menu/SubMenu';
 // const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 
 
-function LeftNav() {
+function LeftNav(props) {
   const collapsed = useContext(Collapsed);
+  const { location } = props;
+  const navDefaultSelectedKeys = location.pathname
+  const defaultOpenKeys = location.pathname.match(/(?=\/).*(?=\/)/)[0]
+  const menuSet = (list) => {
+    return list.reduce((pre, item) => {
+      if (!item.children) {
+        pre.push(
+          <Menu.Item key={item.path} icon={item.icon} >
+            <Link to={item.path}>
+              {item.title}
+            </Link>
+          </Menu.Item>
+        )
+      }
+      else {
+        pre.push(
+          <SubMenu
+            key={item.path}
+            icon={item.icon}
+            title={item.title}
+          >
+            {menuSet(item.children)}
+          </SubMenu >
+        )
+      }
+      return pre
+    }, [])
+
+  }
+
+
   return <>
     <Sider
       trigger={null}
@@ -27,63 +59,15 @@ function LeftNav() {
     >
       <div className="logo" />
       <Menu theme="dark" mode="inline"
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={[navDefaultSelectedKeys]}
+        defaultOpenKeys={[defaultOpenKeys]}
       >
         {
-          menuList.map((item, index) => {
-            return <Menu.Item key={index + 1} icon={item.icon} >
-              <Link to={item.path}>
-                {item.title}
-              </Link>
-            </Menu.Item>
-          })
+          menuSet(menuList)
         }
-
-
-        {/* <Menu.Item key="1" icon={<HomeOutlined />}>
-          <Link to='/home'>
-            主页
-            </Link>
-        </Menu.Item> */}
-        {/* <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-        </Menu.Item> */}
-        {/* <Menu.Item key="/role" icon={<UserOutlined />}>
-          <Link to='/role'>
-            角色管理
-            </Link>
-        </Menu.Item>
-        <Menu.Item key="/user" icon={<UserOutlined />}>
-          <Link to='/user'>
-            用户管理
-            </Link>
-        </Menu.Item> */}
-        {/* <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <MailOutlined />
-                <span>Navigation One</span>
-              </span>
-            }
-          >
-            <Menu.ItemGroup key="g1" title="Item 1">
-              <Menu.Item key="5">Option 1</Menu.Item>
-              <Menu.Item key="6">Option 2</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.ItemGroup key="g2" title="Item 2">
-              <Menu.Item key="7">Option 3</Menu.Item>
-              <Menu.Item key="8">Option 4</Menu.Item>
-            </Menu.ItemGroup>
-            <SubMenu key="sub2" title="Submenu">
-              <Menu.Item key="9">Option 7</Menu.Item>
-              <Menu.Item key="10">Option 8</Menu.Item>
-            </SubMenu>
-          </SubMenu> */}
       </Menu>
     </Sider>
   </>
 }
 
-export default LeftNav
+export default withRouter(LeftNav)

@@ -6,13 +6,10 @@ import {
   MenuFoldOutlined
 } from '@ant-design/icons';
 
-
-
 import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
 
 import LeftNav from '../../components/common/leftNav'
-
 import Role from '../role/Role'
 import User from '../user/User'
 import Home from '../home/Home'
@@ -21,9 +18,6 @@ import { Collapsed } from '../../store/context'
 
 import './Admin.css'
 const { Header, Footer, Content } = Layout;
-
-
-
 
 function Admin(props) {
   const { history } = props;
@@ -60,7 +54,7 @@ function Admin(props) {
               <Route path='/home' component={Home}></Route>
               <Route path='/role' component={Role}></Route>
               <Route path='/user' component={User}></Route>
-              <Redirect to='/home' />
+              {/* <Redirect to='/home' /> */}
             </Switch>
           </div>
         </Content>
