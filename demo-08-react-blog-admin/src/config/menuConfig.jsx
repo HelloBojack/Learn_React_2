@@ -24,6 +24,18 @@ const menuList = [
     ]
   },
   {
+    title: '图表管理',
+    path: '/charts',
+    icon: <BookOutlined />,
+    children: [
+      {
+        title: '折线图',
+        path: '/charts/list',
+        icon: <BookOutlined />,
+      }
+    ]
+  },
+  {
     title: '角色管理',
     path: '/role',
     icon: <UserOutlined />,

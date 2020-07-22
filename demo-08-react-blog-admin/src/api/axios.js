@@ -102,6 +102,21 @@ axios.interceptors.response.use(response => {
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
  */
+
+export function get(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.get(url, {
+      params: params
+    })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(err => {
+        // reject(err)
+        message.error('请求出错：' + err.message)
+      })
+  })
+}
 // export function get(url, params) {
 //   return new Promise((resolve, reject) => {
 //     axios.get(url, {
@@ -135,9 +150,9 @@ axios.interceptors.response.use(response => {
 export function post(url, params) {
   return new Promise((resolve, reject) => {
     axios.post(url, qs.stringify(params))
-      .then(res => {
+      .then(response => {
         // console.log(res)
-        resolve(res);
+        resolve(response);
       })
       .catch(err => {
         // console.log(err)
