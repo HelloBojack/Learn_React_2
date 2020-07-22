@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Layout } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined
-} from '@ant-design/icons';
+
 
 import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
 
 import LeftNav from '../../components/common/leftNav'
+import HeaderPro from '../../components/common/headPro'
 import Role from '../role/Role'
 import User from '../user/User'
 import Home from '../home/Home'
@@ -17,19 +15,19 @@ import Home from '../home/Home'
 import { Collapsed } from '../../store/context'
 
 import './Admin.css'
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 function Admin(props) {
   const { history } = props;
+  const user = storageUtils.getUser()
   useEffect(() => {
-    const user = storageUtils.getUser()
     if (user && user._id) {
       memoryUtils.user = user
     }
     else {
       history.replace("/login");
     }
-  }, [history]);
+  }, [history, user]);
   // Header组件合并侧边栏
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
@@ -42,12 +40,9 @@ function Admin(props) {
         <LeftNav></LeftNav>
       </Collapsed.Provider>
       <Layout className="site-layout">
-        <Header className="site-layout-sub-header-background" style={{ padding: 0 }} >
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'trigger',
-            onClick: toggleCollapsed,
-          })}
-        </Header>
+        <Collapsed.Provider value={collapsed}>
+          <HeaderPro toggleCollapsed={toggleCollapsed}></HeaderPro>
+        </Collapsed.Provider>
         <Content style={{ margin: '24px 16px 0' }}>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
             <Switch>

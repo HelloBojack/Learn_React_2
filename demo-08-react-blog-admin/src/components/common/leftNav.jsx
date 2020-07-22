@@ -8,13 +8,12 @@ import SubMenu from 'antd/lib/menu/SubMenu';
 // const { SubMenu } = Menu;
 const { Sider } = Layout;
 
-
-
 function LeftNav(props) {
   const collapsed = useContext(Collapsed);
   const { location } = props;
   const navDefaultSelectedKeys = location.pathname
   const defaultOpenKeys = location.pathname.match(/(?=\/).*(?=\/)/)[0]
+
   const menuSet = (list) => {
     return list.reduce((pre, item) => {
       if (!item.children) {
@@ -41,7 +40,6 @@ function LeftNav(props) {
     }, [])
 
   }
-
 
   return <>
     <Sider
