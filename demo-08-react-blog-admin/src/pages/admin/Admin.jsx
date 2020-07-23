@@ -7,7 +7,7 @@ import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
 
 import LeftNav from '../../components/common/leftNav'
-import HeaderPro from '../../components/common/headPro'
+import HeaderPro from '../../components/common/headPro/headPro'
 import Role from '../role/Role'
 import User from '../user/User'
 import Home from '../home/Home'
