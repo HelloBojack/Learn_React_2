@@ -13,18 +13,18 @@ import { createFromIconfontCN } from '@ant-design/icons';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: [
-    '//at.alicdn.com/t/font_1960620_ucuszky3ggg.js',
+    '//at.alicdn.com/t/font_1960620_6zr7qjott2a.js',
   ],
 });
 
 function Weather() {
   const [weatherInfo, setWeatherInfo] = useState({ data: {} });
-  const [forecastInfo, setforecastInfo] = useState([{ date: '' }]);
+  const [forecastInfo, setforecastInfo] = useState([{ date: '', weather: '' }]);
   const [refresh, setRefresh] = useState(false);
   const weatherInfoRef = useRef();
-  const [weatherWidth, setWeatherWidth] = useState(800);
+  const [weatherWidth, setWeatherWidth] = useState(300);
   const [weatherAnimation, setWeatherAnimation] = useState('');
-  const [rightArr, setRightArr] = useState(false);
+  const [rightArr, setRightArr] = useState(true);
 
 
   const leftWeather = () => {
@@ -38,6 +38,17 @@ function Weather() {
     setRightArr(false)
   }
 
+  const weatherIcon = (weather) => {
+    if (weather == '晴') {
+      return <IconFont type="icon-sun-line" className="weather-icon" />
+    }
+    else if (weather == '多云') {
+      return <IconFont type="icon-cloud" className="weather-icon" />
+    }
+    else if (weather.indexOf('雨') != -1) {
+      return <IconFont type="icon-rainy-line" className="weather-icon" />
+    }
+  }
   useEffect(() => {
     weatherInfoRef.current = storageUtils.getCookie('weather')
     // console.log(weatherInfoRef.current)
@@ -53,7 +64,7 @@ function Weather() {
     setforecastInfo(weatherInfoRef.current.data.forecast)
     setRefresh(true)
     // console.log(weatherInfo)
-    // console.log(forecastInfo)
+    console.log(forecastInfo)
   }, [refresh]);
 
   return <>
@@ -68,7 +79,7 @@ function Weather() {
             <span className="location">{weatherInfo.city}</span>
           </div>
           <div className="weather-container">
-            <IconFont type="icon-cloud" className="weather-icon" />
+            {weatherIcon(forecastInfo[0].weather)}
             <h1 className="weather-temp">{weatherInfo.temp}°C</h1>
             <h3 className="weather-desc">{forecastInfo[0].weather}</h3>
           </div>
@@ -107,7 +118,8 @@ function Weather() {
                   // }
                   else {
                     return <li key={index} >
-                      <IconFont type="icon-cloud" className="weather-icon-mini" />
+                      <span>{weatherIcon(item.weather)}</span>
+                      <span className="day-name">{item.weather}</span>
                       <span className="day-name">{item.date}</span>
                       <span className="day-temp">{(Number(item.temphigh) + Number(item.templow) / 2)}°C</span>
                     </li>

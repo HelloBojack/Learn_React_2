@@ -55,6 +55,7 @@
 
 @keyframes fadeIn {
   0% {
+    display: block;
     opacity: 0;
     /*初始状态 透明度为0*/
   }
@@ -73,6 +74,7 @@
   }
 
   100% {
+    display: block;
     opacity: 1;
     /*结尾状态 透明度为1*/
   }
@@ -105,13 +107,14 @@
 
 
 .animation-fadeOut {
-  animation: fadeOut 0.5s ease-in-out 0s 1 alternate forwards;
-  -webkit-animation: fadeOut 0.5s ease-in-out 0s 1 alternate forwards;
+  animation: fadeOut 1s ease-in-out 0s 1 alternate forwards;
+  -webkit-animation: fadeOut 1s ease-in-out 0s 1 alternate forwards;
 }
 
 .animation-fadeIn {
-  animation: fadeIn 0.5s ease-in-out 0s 1 alternate forwards;
-  -webkit-animation: fadeIn 0.5s ease-in-out 0s 1 alternate forwards;
+  display: block !important;
+  animation: fadeIn 1s ease-in-out 0s 1 alternate forwards;
+  -webkit-animation: fadeIn 1s ease-in-out 0s 1 alternate forwards;
 }
 
 :root {
@@ -227,7 +230,7 @@
   height: 6em;
 }
 
-.weather-icon-mini svg {
+.week-list .weather-icon svg {
   width: 3em;
   height: 3em;
 }
@@ -252,6 +255,7 @@
   float: left;
   height: 100%;
   padding-top: 25px;
+  display: none;
 }
 
 .today-info {
@@ -373,5 +377,5 @@ flex-wrap: wrap; */
 }
 
 .week-container {
-  margin-top: 120px;
+  margin-top: 100px;
 }
