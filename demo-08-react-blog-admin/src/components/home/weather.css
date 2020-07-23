@@ -1,5 +1,119 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
 
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    /*初始状态 透明度为0*/
+  }
+
+  20% {
+    opacity: .7;
+  }
+
+  50% {
+    opacity: .5;
+    /*中间状态 透明度为0.5*/
+  }
+
+  70% {
+    opacity: .2;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+    /*结尾状态 透明度为1*/
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+    /*初始状态 透明度为0*/
+  }
+
+  20% {
+    opacity: .7;
+  }
+
+  50% {
+    opacity: .5;
+    /*中间状态 透明度为0.5*/
+  }
+
+  70% {
+    opacity: .2;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+    /*结尾状态 透明度为1*/
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    /*初始状态 透明度为0*/
+  }
+
+  20% {
+    opacity: .2;
+  }
+
+  50% {
+    opacity: .5;
+    /*中间状态 透明度为0.5*/
+  }
+
+  70% {
+    opacity: .7;
+  }
+
+  100% {
+    opacity: 1;
+    /*结尾状态 透明度为1*/
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    /*初始状态 透明度为0*/
+  }
+
+  20% {
+    opacity: .2;
+  }
+
+  50% {
+    opacity: .5;
+    /*中间状态 透明度为0.5*/
+  }
+
+  70% {
+    opacity: .7;
+  }
+
+  100% {
+    opacity: 1;
+    /*结尾状态 透明度为1*/
+  }
+}
+
+
+.animation-fadeOut {
+  animation: fadeOut 0.5s ease-in-out 0s 1 alternate forwards;
+  -webkit-animation: fadeOut 0.5s ease-in-out 0s 1 alternate forwards;
+}
+
+.animation-fadeIn {
+  animation: fadeIn 0.5s ease-in-out 0s 1 alternate forwards;
+  -webkit-animation: fadeIn 0.5s ease-in-out 0s 1 alternate forwards;
+}
+
 :root {
   --gradient: linear-gradient(135deg, #72EDF2 10%, #5151E5 100%);
 }
@@ -14,8 +128,6 @@
   clear: both;
 }
 
-
-
 .container {
   border-radius: 25px;
   -webkit-box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
@@ -23,7 +135,13 @@
   background-color: #222831;
   color: #ffffff;
   height: 400px;
-  width: 800px;
+  /* width: 800px; */
+  -moz-transition: width 0.5s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: width 0.5s ease-in-out;
+  /* Safari 和 Chrome */
+  -o-transition: width 0.5s ease-in-out;
+  /* Opera */
 }
 
 .weather-side {

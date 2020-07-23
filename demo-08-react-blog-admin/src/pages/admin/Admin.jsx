@@ -44,14 +44,14 @@ function Admin(props) {
           <HeaderPro toggleCollapsed={toggleCollapsed}></HeaderPro>
         </Collapsed.Provider>
         <Content style={{ margin: '24px 16px 0' }}>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            <Switch>
-              <Route path='/home' component={Home}></Route>
-              <Route path='/role' component={Role}></Route>
-              <Route path='/user' component={User}></Route>
-              {/* <Redirect to='/home' /> */}
-            </Switch>
-          </div>
+          {/* <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}> */}
+          <Switch>
+            <Route path='/home' component={Home}></Route>
+            <Route path='/role' component={Role}></Route>
+            <Route path='/user' component={User}></Route>
+            {/* <Redirect to='/home' /> */}
+          </Switch>
+          {/* </div> */}
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
       </Layout>

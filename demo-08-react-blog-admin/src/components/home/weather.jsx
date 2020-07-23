@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { message } from 'antd';
+// import { message } from 'antd';
 import dayjs from 'dayjs'
 import { getWeather } from '../../api/api'
+import {
+  LeftOutlined,
+  RightOutlined
+} from '@ant-design/icons';
 import './weather.css'
 import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
@@ -18,26 +22,21 @@ function Weather() {
   const [forecastInfo, setforecastInfo] = useState([{ date: '' }]);
   const [refresh, setRefresh] = useState(false);
   const weatherInfoRef = useRef();
+  const [weatherWidth, setWeatherWidth] = useState(800);
+  const [weatherAnimation, setWeatherAnimation] = useState('');
+  const [rightArr, setRightArr] = useState(false);
 
-  //   var script = document.createElement('script');
-  //   var script2 = document.createElement('script');
-  //   script.type = 'text/javascript';
-  //   script.async = true;
-  //   script.src = 'https://widget.heweather.net/standard/static/js/he-standard-common.js?v=1.1';
-  //   script2.type = 'text/javascript';
-  //   script2.innerText = `WIDGET = {
-  //   CONFIG: {
-  //     "layout": 2,
-  //       "width": "230",
-  //         "height": "270",
-  //           "background": 1,
-  //             "dataColor": "FFFFFF",
-  //               "borderRadius": 5,
-  //                 "key": "0296a7f900f0424d85739c948355f333"
-  //   }
-  // } `
-  //   document.head.appendChild(script);
-  //   document.head.appendChild(script2);
+
+  const leftWeather = () => {
+    setWeatherWidth(300)
+    setWeatherAnimation('animation-fadeOut')
+    setRightArr(true)
+  }
+  const rightWeather = () => {
+    setWeatherWidth(800)
+    setWeatherAnimation('animation-fadeIn')
+    setRightArr(false)
+  }
 
   useEffect(() => {
     weatherInfoRef.current = storageUtils.getCookie('weather')
@@ -50,20 +49,16 @@ function Weather() {
       }
       fetchData()
     }
-
     setWeatherInfo(weatherInfoRef.current.data)
     setforecastInfo(weatherInfoRef.current.data.forecast)
     setRefresh(true)
-    console.log(weatherInfo)
-    console.log(forecastInfo)
-
-
+    // console.log(weatherInfo)
+    // console.log(forecastInfo)
   }, [refresh]);
 
   return <>
     <div ref={weatherInfoRef}>
-      <div id="he-plugin-standard"></div>
-      <div className="container">
+      <div className="container" style={{ width: `${weatherWidth}px` }}>
         <div className="weather-side">
           <div className="weather-gradient"></div>
           <div className="date-container">
@@ -77,8 +72,10 @@ function Weather() {
             <h1 className="weather-temp">{weatherInfo.temp}°C</h1>
             <h3 className="weather-desc">{forecastInfo[0].weather}</h3>
           </div>
+
+          {rightArr && <RightOutlined style={{ position: 'absolute', right: '5%', top: '50%' }} onClick={() => rightWeather()} />}
         </div>
-        <div className="info-side">
+        <div className={["info-side", weatherAnimation].join(' ')}>
           <div className="today-info-container">
             <div className="today-info">
               <div className="precipitation">
@@ -103,7 +100,7 @@ function Weather() {
               {
                 forecastInfo.map((item, index) => {
                   if (index == 0) {
-                    return
+                    return false
                   }
                   // else if (index == 1) {
                   //   return <li key={index} className="active"><i className="day-icon" data-feather="sun"></i><span className="day-name">{item.date}</span><span className="day-temp">29°C</span></li>
@@ -123,6 +120,7 @@ function Weather() {
           {/* <div className="location-container">
             <button className="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button>
           </div> */}
+          <LeftOutlined style={{ position: 'absolute', right: 0, top: '50%' }} onClick={() => leftWeather()} />
         </div>
       </div>
     </div>
