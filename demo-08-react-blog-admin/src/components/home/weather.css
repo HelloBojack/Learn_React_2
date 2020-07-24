@@ -57,7 +57,6 @@
   0% {
     display: block;
     opacity: 0;
-    /*初始状态 透明度为0*/
   }
 
   20% {
@@ -66,7 +65,6 @@
 
   50% {
     opacity: .5;
-    /*中间状态 透明度为0.5*/
   }
 
   70% {
@@ -76,14 +74,12 @@
   100% {
     display: block;
     opacity: 1;
-    /*结尾状态 透明度为1*/
   }
 }
 
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
-    /*初始状态 透明度为0*/
   }
 
   20% {
@@ -92,7 +88,6 @@
 
   50% {
     opacity: .5;
-    /*中间状态 透明度为0.5*/
   }
 
   70% {
@@ -101,10 +96,8 @@
 
   100% {
     opacity: 1;
-    /*结尾状态 透明度为1*/
   }
 }
-
 
 .animation-fadeOut {
   animation: fadeOut 1s ease-in-out 0s 1 alternate forwards;
@@ -260,7 +253,7 @@
 
 .today-info {
   padding: 15px;
-  margin: 0 25px 25px 25px;
+  margin: 0 25px;
   /* 	box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25); */
   border-radius: 10px;
 }
@@ -281,7 +274,7 @@
 .week-list {
   list-style-type: none;
   padding: 0;
-  margin: 10px 35px;
+  margin: 0 35px;
   -webkit-box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -374,8 +367,4 @@ flex-wrap: wrap; */
   height: 1em;
   width: auto;
   margin-right: 5px;
-}
-
-.week-container {
-  margin-top: 100px;
 }

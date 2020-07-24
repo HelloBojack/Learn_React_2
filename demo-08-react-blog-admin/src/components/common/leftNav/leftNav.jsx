@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import { Layout, Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom'
 
-import menuList from '../../config/menuConfig.jsx'
-import { Collapsed } from '../../store/context'
+import menuList from '../../../config/menuConfig.jsx'
+import { Collapsed } from '../../../store/context'
 import SubMenu from 'antd/lib/menu/SubMenu';
 // const { SubMenu } = Menu;
+import './leftNav.css'
 const { Sider } = Layout;
 
 function LeftNav(props) {

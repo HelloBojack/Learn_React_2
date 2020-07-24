@@ -6,7 +6,7 @@ import { Layout } from 'antd';
 import storageUtils from '../../utils/storageUtils'
 import memoryUtils from '../../utils/memoryUtils'
 
-import LeftNav from '../../components/common/leftNav'
+import LeftNav from '../../components/common/leftNav/leftNav'
 import HeaderPro from '../../components/common/headPro/headPro'
 import Role from '../role/Role'
 import User from '../user/User'
