@@ -5,14 +5,14 @@ import dayjs from 'dayjs'
 // import echarts from 'echarts'
 // import ReactEcharts from "echarts-for-react";
 
-import { getWeather } from '../../api/api'
+import { getWeather } from '../../../api/api'
 import {
   LeftOutlined,
   RightOutlined
 } from '@ant-design/icons';
 import './weather.css'
 
-import storageUtils from '../../utils/storageUtils'
+import storageUtils from '../../../utils/storageUtils'
 import { createFromIconfontCN } from '@ant-design/icons';
 
 const IconFont = createFromIconfontCN({

@@ -144,7 +144,7 @@
   position: relative;
   height: 100%;
   border-radius: 25px;
-  background-image: url("https://images.unsplash.com/photo-1559963110-71b394e7494d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80");
+  background-image: url("https://img10.360buyimg.com/imgzone/jfs/t1/144945/33/4056/144945/5f1feca2Ec127cfb8/2b08a8162414ca4b.jpg");
   width: 300px;
   -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
@@ -367,4 +367,8 @@ flex-wrap: wrap; */
   height: 1em;
   width: auto;
   margin-right: 5px;
+}
+
+.week-container {
+  margin-top: 100px;
 }
