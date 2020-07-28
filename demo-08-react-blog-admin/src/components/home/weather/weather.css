@@ -138,6 +138,7 @@
   /* Safari 和 Chrome */
   -o-transition: width 0.5s ease-in-out;
   /* Opera */
+  margin-top: 100px;
 }
 
 .weather-side {
