@@ -1,0 +1,10 @@
+.dataNumber {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.dataTrend {
+  font-size: 14px;
+}
