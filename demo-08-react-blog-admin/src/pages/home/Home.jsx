@@ -8,7 +8,6 @@ function Home() {
 
 
   return <>
-
     <DataCenter></DataCenter>
     <Weather></Weather>
   </>
