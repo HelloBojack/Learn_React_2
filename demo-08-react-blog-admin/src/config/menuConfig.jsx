@@ -32,6 +32,11 @@ const menuList = [
         title: '折线图',
         path: '/charts/list',
         icon: <BookOutlined />,
+      },
+      {
+        title: '柱状图',
+        path: '/charts/list2',
+        icon: <BookOutlined />,
       }
     ]
   },

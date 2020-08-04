@@ -14,7 +14,7 @@ function DataCard(props) {
           hoverable
           key={it.title}
           extra={<Tooltip title={it.tooltip}><InfoCircleOutlined /></Tooltip>}
-          style={{ width: 200 }}>
+          style={{ width: '23%' }}>
           <div className="dataNumber">
             {it.number}
             <div className="dataTrend">

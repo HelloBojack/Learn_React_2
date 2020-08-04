@@ -43,7 +43,7 @@ function Admin(props) {
         <Collapsed.Provider value={collapsed}>
           <HeaderPro toggleCollapsed={toggleCollapsed}></HeaderPro>
         </Collapsed.Provider>
-        <Content style={{ margin: '24px 16px 0', padding: 24, }}>
+        <Content style={{ margin: '0 16px 0', padding: 24, }}>
           <Switch>
             <Route path='/home' component={Home}></Route>
             <Route path='/role' component={Role}></Route>
