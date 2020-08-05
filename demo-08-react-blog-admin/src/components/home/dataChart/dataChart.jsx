@@ -1,17 +1,33 @@
 import React from 'react'
-import { Card, Tooltip, Select } from 'antd';
-import { DatePicker, Space } from 'antd';
-
-import echarts from 'echarts';
+import { Card, Select, DatePicker } from 'antd';
 import ReactEcharts from "echarts-for-react";
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
+import DataProgress from './dataProgress/dataProgress'
+
+
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-
 function DataChart() {
-  echarts.registerTheme('my_theme', {
-    backgroundColor: '#f4cccc'
-  });
+  const progressList = [
+    {
+      title: '阅读数',
+      percent: '99'
+    },
+    {
+      title: '点赞数',
+      percent: '66'
+    },
+    {
+      title: '评论数',
+      percent: '33'
+    },
+    {
+      title: '关注人数',
+      percent: '11'
+    },
+  ]
 
   const getOption = () => ({
     backgroundColor: 'transparent',
@@ -128,20 +144,24 @@ function DataChart() {
         </Select>
       }
       extra={
-        <RangePicker />
+        <RangePicker locale={locale} />
       }
       hoverable
       style={{ width: '100%', marginTop: 20 }}>
-      <div>
-        <div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 400 }}>
+        <div style={{ width: '50%' }}>
           <ReactEcharts
             option={getOption()}
-            style={{ height: '300px', width: '50%' }}
+            style={{ height: '400px' }}
             className='echarts-for-echarts'
-            theme='my_theme' />
+          />
         </div>
-        <div>
-          tab1
+        <div style={{ width: '50%', height: '400px', paddingTop: 20 }}>
+          {
+            progressList.map((item, index) => {
+              return <DataProgress item={item} key={item.title}></DataProgress>
+            })
+          }
         </div>
       </div>
 

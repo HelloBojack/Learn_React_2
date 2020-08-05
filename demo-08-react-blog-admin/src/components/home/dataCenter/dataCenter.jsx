@@ -11,25 +11,25 @@ const dataCenterConfig = [
   {
     title: '阅读',
     tooltip: 'text',
-    number: 123,
+    number: 8996635,
     trend: 12,
   },
   {
     title: '点赞',
     tooltip: 'text',
-    number: 123,
+    number: 1706,
     trend: 12,
   },
   {
     title: '评论',
     tooltip: 'text',
-    number: 123,
+    number: 3700,
     trend: 12,
   },
   {
     title: '关注人',
     tooltip: 'text',
-    number: 123,
+    number: 2387,
     trend: 12,
   },
 ]

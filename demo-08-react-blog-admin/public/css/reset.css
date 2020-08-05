@@ -51,7 +51,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -80,10 +82,11 @@ table {
 td,
 th {
   padding: 0;
-  text-align: left;
+  /* text-align: left; */
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
 }
