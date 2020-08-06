@@ -102,11 +102,13 @@ class AdminService extends Service {
     const { ctx, app } = this;
     try {
       let params = ctx.request.body;
-      let query = this.ctx.query;
       let { pageNo, pageSize } = params;
       console.log(params)
-      let totalNum = await this.ctx.model.Article.find({}).countDocuments();
-      const results = await this.ctx.model.Article.find({}).skip((pageNo - 1) * pageSize).limit(pageSize);
+
+      let totalNum = await ctx.model.Article.find({}).countDocuments();
+      console.log(totalNum)
+      let results = await ctx.model.Article.find({}).skip((pageNo - 1) * pageSize).limit(Number(pageSize));
+
       if (results.length > 0) {
         return {
           "result": true,
@@ -119,6 +121,7 @@ class AdminService extends Service {
       }
 
     } catch (err) {
+      console.log(err)
       ctx.body = JSON.stringify(err);
     }
   }

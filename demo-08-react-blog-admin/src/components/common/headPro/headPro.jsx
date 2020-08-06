@@ -38,7 +38,7 @@ function HeaderPro(props) {
           </Breadcrumb.Item>
         )
         if (key.split('/').length - 1 >= 2) {
-          console.log(3)
+          // console.log(3)
           item.children.forEach(n => {
             if (key.includes(n.path)) {
               pre.push(
@@ -49,7 +49,7 @@ function HeaderPro(props) {
               )
             }
           })
-          console.log(item.children);
+          // console.log(item.children);
           // item.children && breadcrumbSet(item.children)
         }
       }
