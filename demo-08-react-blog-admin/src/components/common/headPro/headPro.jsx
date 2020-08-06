@@ -4,6 +4,9 @@ import { Layout, Menu, Dropdown, message } from 'antd';
 import { Breadcrumb } from 'antd';
 import { Collapsed } from '../../../store/context'
 import menuList from '../../../config/menuConfig.jsx'
+import { Modal, Button, Space } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -13,14 +16,15 @@ import {
   LogoutOutlined
 } from '@ant-design/icons';
 import storageUtils from '../../../utils/storageUtils'
+import memoryUtils from '../../../utils/memoryUtils'
 import './headPro.css'
 const { Header } = Layout;
-
+const { confirm } = Modal;
 function HeaderPro(props) {
   const { toggleCollapsed } = props
   const collapsed = useContext(Collapsed);
   const user = storageUtils.getUser()
-  const { location } = props;
+  const { location, history } = props;
   const key = location.pathname
   let breadcrumbSet = (list) => {
     return list.reduce((pre, item, index, arr) => {
@@ -92,16 +96,34 @@ function HeaderPro(props) {
     message.info('Click on menu item.');
     console.log('click', e);
   }
+  const logoutClick = () => {
+    confirm({
+      title: '你确定要退出吗？',
+      icon: <ExclamationCircleOutlined />,
+      // content: 'Some descriptions',
+      okText: '确定',
+      cancelText: '取消',
+      onOk() {
+        storageUtils.removeCookie('user')
+        memoryUtils.user = {}
+        history.replace("/login");
+
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" icon={<UserOutlined />}>
+    <Menu>
+      <Menu.Item key="1" icon={<UserOutlined />} onClick={handleMenuClick}>
         个人中心
       </Menu.Item>
-      <Menu.Item key="2" icon={<SettingOutlined />}>
+      <Menu.Item key="2" icon={<SettingOutlined />} onClick={handleMenuClick}>
         个人设置
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="3" icon={<LogoutOutlined />}>
+      <Menu.Item key="3" icon={<LogoutOutlined />} onClick={logoutClick}>
         退出登录
       </Menu.Item>
     </Menu>
@@ -112,7 +134,7 @@ function HeaderPro(props) {
         className: 'trigger',
         onClick: toggleCollapsed,
       })}
-      <span className="pageName">
+      <span style={{ paddingLeft: 20, display: 'inline-block', cursor: 'pointer' }}>
         <Breadcrumb>
           {breadcrumbSet(menuList)}
         </Breadcrumb>
@@ -126,7 +148,7 @@ function HeaderPro(props) {
         </div>
       </Dropdown>
 
-    </Header>
+    </Header >
   </>
 }
 

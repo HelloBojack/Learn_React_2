@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Select, DatePicker } from 'antd';
+import echarts from 'echarts'
 import ReactEcharts from "echarts-for-react";
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
@@ -30,106 +31,126 @@ function DataChart() {
   ]
 
   const getOption = () => ({
-    backgroundColor: 'transparent',
+    color: '#38d7b7',
     tooltip: {
       trigger: 'axis',
-      // axisPointer: {
-      //   type: 'shadow'
-      // }
-    },
-    legend: {
-      data: ['阅读数', '点赞数'],
-      align: 'left',
-      top: 18,
-      right: 20,
-      textStyle: {
-        color: "#c1c5cd"
-      },
-      itemWidth: 10,
-      itemHeight: 10,
-      itemGap: 12
+      axisPointer: {
+        type: 'line',
+        lineStyle: {
+          type: 'dashed',
+          color: '#38d7b7'
+        }
+      }
     },
     grid: {
-      top: '24%',
-      left: '3%',
-      right: '3%',
+      left: '2%',
+      right: '2%',
       bottom: '3%',
       containLabel: true
     },
-    xAxis: [{
+    xAxis: {
       type: 'category',
-      data: [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-      ],
+      boundaryGap: true,
+      data: ['2020-04-20', '2020-04-21', '2020-04-22', '2020-04-23', '2020-04-24', '2020-04-25', '2020-04-26'],
       axisLine: {
-        show: true,
         lineStyle: {
-          color: "#45647f",
           width: 1,
-          type: "solid"
+          type: 'dotted',
+          color: '#686868'
         }
       },
       axisTick: {
-        show: false,
-      },
-      axisLabel: {
-        show: true,
-        textStyle: {
-          color: "#a1d8f1",
-        }
-      },
-    }],
-    yAxis: [{
-      type: 'value',
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: true,
-        lineStyle: {
-          color: "#45647f",
-          width: 1,
-          type: "solid"
-        },
-      },
-      splitLine: {
         show: false
       },
       axisLabel: {
-        show: true,
-        textStyle: {
-          color: '#a1d8f1',
-          fontSize: '12px'
-        }
-      }
 
-    }],
-    series: [{
-      name: '阅读数',
-      type: 'line',
-      data: [20, 50, 80, 58, 83, 68, 57, 100],
-      barWidth: 8, //柱子宽度
-      // barGap: 1, //柱子之间间距
-      itemStyle: {
-        color: '#14e3cc'
       }
-    }, {
-      name: '点赞数',
-      type: 'line',
-      data: [50, 70, 60, 61, 75, 87, 60, 62],
-      barWidth: 8,
-      // barGap: 1,
-      itemStyle: {
-        color: '#f84f55'
+    },
+    yAxis: {
+      // name: '阅读数',
+      nameTextStyle: {
+        fontFamily: 'MicrosoftYaHei',
+        fontSize: '14px',
+        color: '#686868',
+      },
+      type: 'value',
+      splitLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      },
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
       }
-    }]
+    },
+    series: [
+      {
+        type: 'line',
+        smooth: true,
+        data: [15, 32, 14, 33, 9, 12, 41],
+        symbolSize: 1,
+        itemStyle: {
+          normal: {
+            areaStyle: {
+              type: 'default',
+              //渐变色实现
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1,//变化方向
+                //渐变色
+                [
+                  { offset: 0, color: 'rgba(56, 215, 183, 0.4)' },
+                  { offset: 0.89, color: 'rgba(56, 215, 183, 0.1)' }
+                ]
+              ),
+            },
+            lineStyle: {  //线的颜色
+              color: '#38d7b7'
+            }
+          },
+          emphasis: { // 鼠标经过时：
+            symbol: "circle",
+            borderWidth: 13,
+            borderColor: 'rgba(195,243,233,0.7)'
+            // color: '#38d7b7',
+            // borderColor: '#38d7b7',
+          }
+        },
+      },
+      {
+        type: 'line',
+        smooth: true,
+        data: [33, 11, 22, 55, 66, 33, 21],
+        symbolSize: 1,
+        itemStyle: {
+          normal: {
+            areaStyle: {
+              type: 'default',
+              //渐变色实现
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1,//变化方向
+                //渐变色
+                [
+                  { offset: 0, color: 'rgba(16, 142, 233, 0.4)' },
+                  { offset: 0.89, color: 'rgba(16, 142, 233, 0.1)' }
+                ]
+              ),
+            },
+            lineStyle: {  //线的颜色
+              color: '#1890ff'
+            }
+          },
+          emphasis: { // 鼠标经过时：
+            symbol: "circle",
+            borderWidth: 13,
+            borderColor: 'rgba(16, 142, 233,0.7)'
+            // color: '#38d7b7',
+            // borderColor: '#38d7b7',
+          }
+        },
+      }
+    ]
+
   })
 
 
@@ -140,7 +161,7 @@ function DataChart() {
           <Option value="1">阅读数</Option>
           <Option value="2">点赞数</Option>
           <Option value="3">评论数</Option>
-          <Option value="3">关注人数</Option>
+          <Option value="4">关注人数</Option>
         </Select>
       }
       extra={
@@ -156,7 +177,7 @@ function DataChart() {
             className='echarts-for-echarts'
           />
         </div>
-        <div style={{ width: '50%', height: '400px', paddingTop: 20 }}>
+        <div style={{ width: '50%', height: '400px', paddingTop: 10 }}>
           {
             progressList.map((item, index) => {
               return <DataProgress item={item} key={item.title}></DataProgress>

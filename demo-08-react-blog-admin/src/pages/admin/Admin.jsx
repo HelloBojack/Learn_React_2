@@ -45,6 +45,7 @@ function Admin(props) {
         </Collapsed.Provider>
         <Content style={{ margin: '0 16px 0', padding: 24, }}>
           <Switch>
+            <Route path='/' component={Home}></Route>
             <Route path='/home' component={Home}></Route>
             <Route path='/role' component={Role}></Route>
             <Route path='/user' component={User}></Route>
