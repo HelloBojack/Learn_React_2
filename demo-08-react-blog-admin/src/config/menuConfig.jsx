@@ -3,6 +3,8 @@ import {
   HomeOutlined,
   UserOutlined,
   BookOutlined,
+  FileAddOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 
 const menuList = [
@@ -17,9 +19,14 @@ const menuList = [
     icon: <BookOutlined />,
     children: [
       {
-        title: '文章管理',
-        path: '/article/list',
-        icon: <BookOutlined />,
+        title: '新建文章',
+        path: '/article/articleNew',
+        icon: <FileAddOutlined />,
+      },
+      {
+        title: '文章列表',
+        path: '/article/articleList',
+        icon: <UnorderedListOutlined />,
       }
     ]
   },

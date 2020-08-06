@@ -1,23 +1,24 @@
 import React, { useContext } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Layout, Menu, Dropdown, message } from 'antd';
-import { Breadcrumb } from 'antd';
-import { Collapsed } from '../../../store/context'
-import menuList from '../../../config/menuConfig.jsx'
-import { Modal, Button, Space } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-
+import { Layout, Menu, Dropdown, message, Breadcrumb, Modal } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   DownOutlined,
   UserOutlined,
   SettingOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  ExclamationCircleOutlined
 } from '@ant-design/icons';
+
 import storageUtils from '../../../utils/storageUtils'
 import memoryUtils from '../../../utils/memoryUtils'
+
+import { Collapsed } from '../../../store/context'
+import menuList from '../../../config/menuConfig.jsx'
+
 import './headPro.css'
+
 const { Header } = Layout;
 const { confirm } = Modal;
 function HeaderPro(props) {
