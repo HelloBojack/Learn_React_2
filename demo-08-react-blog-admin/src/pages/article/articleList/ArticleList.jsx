@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Modal, Button } from 'antd';
 
 import { getArticleList, hiddenArticleItem } from '../../../api/api'
+// import { Modal, Button, Space } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
+const { confirm } = Modal;
 
 const ArticleList = () => {
   const [articleList, setArticleList] = useState([]);
@@ -88,21 +91,45 @@ const ArticleList = () => {
       sorter: (a, b) => a.commentNum - b.commentNum,
     },
     {
+      title: '显示/隐藏',
+      dataIndex: 'visibility',
+      key: 'visibility',
+      align: 'center',
+      render: (text, record) => (
+        <Space size="middle">
+          {record.visibility == 1 ? '显示' : '隐藏'}
+        </Space>
+      ),
+    },
+    {
       title: '操作',
       key: 'action',
       align: 'center',
       render: (text, record) => (
         <Space size="middle">
           <a>编辑</a>
-          <a onClick={() => handleHiddenArticleItem(record)}>删除</a>
+          {record.visibility == 1 ? <Button size="small" type="danger" onClick={() => handleHiddenArticleItem(record)}> 隐藏</Button> : <Button size="small" type="primary" onClick={() => handleHiddenArticleItem(record)}>显示</Button>}
         </Space>
       ),
     },
   ];
 
   const handleHiddenArticleItem = (record) => {
-    let result = hiddenArticleItem(record._id)
-    console.log(result)
+    confirm({
+      title: '你确定要隐藏这个文章吗？',
+      icon: <ExclamationCircleOutlined />,
+      // content: 'Some descriptions',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        let result = hiddenArticleItem({ '_id': record._id, 'visibility': Number(!record.visibility) })
+        console.log(result)
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
   }
 
   return <>
