@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Tag, Space, Modal, Button } from 'antd';
+import { Table, Tag, Space, Modal, Button, message } from 'antd';
 
 import { getArticleList, hiddenArticleItem } from '../../../api/api'
 // import { Modal, Button, Space } from 'antd';
@@ -35,7 +35,7 @@ const ArticleList = () => {
       dataIndex: 'intro',
       key: 'intro',
       align: 'center',
-      width: '300px',
+      width: '220px',
       ellipsis: true
     },
     {
@@ -105,9 +105,10 @@ const ArticleList = () => {
       title: '操作',
       key: 'action',
       align: 'center',
+      width: '160px',
       render: (text, record) => (
         <Space size="middle">
-          <a>编辑</a>
+          <Button size="small" type="primary" >编辑</Button>
           {record.visibility == 1 ? <Button size="small" type="danger" onClick={() => handleHiddenArticleItem(record)}> 隐藏</Button> : <Button size="small" type="primary" onClick={() => handleHiddenArticleItem(record)}>显示</Button>}
         </Space>
       ),
@@ -123,8 +124,16 @@ const ArticleList = () => {
       okType: 'danger',
       cancelText: '取消',
       onOk() {
-        let result = hiddenArticleItem({ '_id': record._id, 'visibility': Number(!record.visibility) })
-        console.log(result)
+        let result;
+        async function hiddenItem() {
+          result = await hiddenArticleItem({ '_id': record._id, 'visibility': Number(!record.visibility) })
+          setArticleList(articleList.map(n => n._id == result.data[0]._id ? n = result.data[0] : n))
+          record.visibility == 1 ? message.success('隐藏文章成功') : message.success('显示文章成功');
+        }
+
+        hiddenItem();
+
+        // setArticleList()
       },
       onCancel() {
         console.log('Cancel');
