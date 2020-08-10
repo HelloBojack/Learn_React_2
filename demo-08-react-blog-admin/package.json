@@ -11,6 +11,8 @@
     "dayjs": "^1.8.30",
     "echarts": "^4.8.0",
     "echarts-for-react": "^2.0.16",
+    "highlight.js": "^10.1.2",
+    "marked": "^1.1.1",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -67,7 +67,7 @@ const ArticleList = () => {
           value: 'tag2',
         }
       ],
-      onFilter: (value, record) => record.tags.indexOf(value) != -1,
+      onFilter: (value, record) => record.tags.indexOf(value) !== -1,
     },
     {
       title: '浏览量',
@@ -97,7 +97,7 @@ const ArticleList = () => {
       align: 'center',
       render: (text, record) => (
         <Space size="middle">
-          {record.visibility == 1 ? '显示' : '隐藏'}
+          {record.visibility === 1 ? '显示' : '隐藏'}
         </Space>
       ),
     },
@@ -109,7 +109,7 @@ const ArticleList = () => {
       render: (text, record) => (
         <Space size="middle">
           <Button size="small" type="primary" >编辑</Button>
-          {record.visibility == 1 ? <Button size="small" type="danger" onClick={() => handleHiddenArticleItem(record)}> 隐藏</Button> : <Button size="small" type="primary" onClick={() => handleHiddenArticleItem(record)}>显示</Button>}
+          {record.visibility === 1 ? <Button size="small" type="danger" onClick={() => handleHiddenArticleItem(record)}> 隐藏</Button> : <Button size="small" type="primary" onClick={() => handleHiddenArticleItem(record)}>显示</Button>}
         </Space>
       ),
     },
@@ -127,8 +127,8 @@ const ArticleList = () => {
         let result;
         async function hiddenItem() {
           result = await hiddenArticleItem({ '_id': record._id, 'visibility': Number(!record.visibility) })
-          setArticleList(articleList.map(n => n._id == result.data[0]._id ? n = result.data[0] : n))
-          record.visibility == 1 ? message.success('隐藏文章成功') : message.success('显示文章成功');
+          setArticleList(articleList.map(n => n._id === result.data[0]._id ? n = result.data[0] : n))
+          record.visibility === 1 ? message.success('隐藏文章成功') : message.success('显示文章成功');
         }
 
         hiddenItem();

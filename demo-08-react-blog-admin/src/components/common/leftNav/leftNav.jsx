@@ -44,17 +44,18 @@ function LeftNav(props) {
 
   return <>
     <Sider
+      // breakpoint="lg"
+      // collapsedWidth="0"
+      // onBreakpoint={broken => {
+      //   console.log(broken);
+      // }}
+      // onCollapse={(collapsed, type) => {
+      //   console.log(collapsed, type);
+      // }}
+      // trigger={collapsed}
       trigger={null}
       collapsible
       collapsed={collapsed}
-    // breakpoint="lg"
-    // collapsedWidth="0"
-    // onBreakpoint={broken => {
-    //   console.log(broken);
-    // }}
-    // onCollapse={(collapsed, type) => {
-    //   console.log(collapsed, type);
-    // }}
     >
       <div className="logo" />
       <Menu theme="dark" mode="inline"

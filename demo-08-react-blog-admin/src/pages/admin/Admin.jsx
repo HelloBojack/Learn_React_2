@@ -31,7 +31,7 @@ function Admin(props) {
     }
   }, [history, user]);
   // Header组件合并侧边栏
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed)
   }
