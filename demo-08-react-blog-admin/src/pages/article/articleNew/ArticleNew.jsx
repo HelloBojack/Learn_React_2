@@ -13,16 +13,19 @@ import {
   TreeSelect,
   Switch,
   Card,
+  Row,
+  Col,
 } from 'antd';
 import 'highlight.js/styles/monokai-sublime.css';
-
+import './ArticleNew.css'
 const { TextArea } = Input
 
 const ArticleNew = () => {
+  const [form] = Form.useForm();
   const [articleContent, setArticleContent] = useState('')  //markdown的编辑内容
   const [markdownContent, setMarkdownContent] = useState('预览内容') //html内容
-
-  const [componentSize, setComponentSize] = useState('default');
+  const [previewSwitch, setPreviewSwitch] = useState(false)
+  // const [componentSize, setComponentSize] = useState('default');
 
 
   marked.setOptions({
@@ -45,42 +48,60 @@ const ArticleNew = () => {
     setMarkdownContent(html)
   }
 
+  const previewSwitchOnChange = (checked) => {
+    setPreviewSwitch(checked)
+  }
+
+  const onFinish = values => {
+    values.visibility = Number(values.visibility)
+    console.log(values);
+  };
   return <>
     <Card>
-      <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        initialValues={{ size: componentSize }}
-        // onValuesChange={onFormLayoutChange}
-        size={componentSize}
-      >
-        <Form.Item label="文章标题：">
-          <Input placeholder="文章标题" />
-        </Form.Item>
-        <Form.Item label="文章内容：">
-          <TextArea
-            id="文章内容"
-            className="markdown-content"
-            rows={30}
-            onChange={changeContent}
-            onPressEnter={changeContent}
-            placeholder="编辑内容"
-          />
-        </Form.Item>
-        <Form.Item label="Switch">
-          <Switch />
-        </Form.Item>
-        <Form.Item label="Button">
-          <Button>Button</Button>
-        </Form.Item>
-      </Form>
-    </Card>
+      <Row>
+        <Col span={12}>
+          <Form
+            form={form}
+            onFinish={onFinish}
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 14 }}
+            layout="horizontal"
+          >
+            <Form.Item label="文章标题：" name="title" >
+              <Input placeholder="文章标题" />
+            </Form.Item>
+            <Form.Item label="文章内容：" name="content">
+              <TextArea
+                id="文章内容"
+                className="markdown-content"
+                rows={20}
+                onChange={changeContent}
+                onPressEnter={changeContent}
+                placeholder="文章内容"
 
+              />
 
-
-
-    <div className="show-html" dangerouslySetInnerHTML={{ __html: markdownContent }}></div>
+            </Form.Item>
+            <Form.Item label="预览：">
+              <Switch onChange={previewSwitchOnChange} />
+            </Form.Item>
+            <Form.Item label="是否显示：" name="visibility" valuePropName="checked">
+              <Switch />
+            </Form.Item>
+            <Form.Item wrapperCol={{ span: 16, offset: 8 }}>
+              <Button type="primary" htmlType="submit">
+                保存
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+        {previewSwitch && <Col span={12}>
+          <Card style={{ width: '100%' }}>
+            <div className="markdownArea" dangerouslySetInnerHTML={{ __html: markdownContent }}></div>
+          </Card>
+        </Col>}
+      </Row>
+    </Card >
   </>
 
 }
