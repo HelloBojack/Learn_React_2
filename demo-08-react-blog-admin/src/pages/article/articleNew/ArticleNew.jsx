@@ -13,6 +13,9 @@ import {
 } from 'antd';
 
 import { newArticleItem } from '../../../api/api'
+
+import TagsArea from '../../../components/articleNew/tagsArea/tagsArea'
+
 import 'highlight.js/styles/monokai-sublime.css';
 import './ArticleNew.css'
 const { TextArea } = Input
@@ -22,9 +25,8 @@ const ArticleNew = () => {
   const [articleContent, setArticleContent] = useState('')  //markdown的编辑内容
   const [markdownContent, setMarkdownContent] = useState('预览内容') //html内容
   const [previewSwitch, setPreviewSwitch] = useState(false)
-  // const [componentSize, setComponentSize] = useState('default');
 
-
+  // marked & highlight settings
   marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true, // 允许 Git Hub标准的markdown.
@@ -41,8 +43,7 @@ const ArticleNew = () => {
 
   const changeContent = (e) => {
     setArticleContent(e.target.value)
-    let html = marked(e.target.value)
-    setMarkdownContent(html)
+    setMarkdownContent(marked(articleContent))
   }
 
   const previewSwitchOnChange = (checked) => {
@@ -58,9 +59,9 @@ const ArticleNew = () => {
       }
     }
     newItem()
-
     // console.log(values);
   };
+
   return <>
     <Card>
       <Row>
@@ -84,6 +85,16 @@ const ArticleNew = () => {
                 onPressEnter={changeContent}
                 placeholder="文章内容"
               />
+            </Form.Item>
+            <Form.Item label="文章简介：" name="intro">
+              <TextArea
+                rows={2}
+                placeholder="文章简介"
+              />
+            </Form.Item>
+            <Form.Item label="标签：" name="tags" >
+              <Input placeholder="标签" />
+              <TagsArea />
             </Form.Item>
             <Form.Item label="预览：">
               <Switch onChange={previewSwitchOnChange} />

@@ -9,19 +9,40 @@ const { confirm } = Modal;
 
 const ArticleList = () => {
   const [articleList, setArticleList] = useState([]);
+  const [articlePagination, setArticlePagination] = useState({
+    total: 0,
+    pageSize: 10,
+    pageNo: 1,
+  });
   const [refresh, setRefresh] = useState(false);
   const articleListRef = useRef();
 
   useEffect(() => {
     async function fetchData() {
       let result = await getArticleList()
-      articleListRef.current = result.data
+      articleListRef.current = result
       // console.log(articleListRef.current)
-      setArticleList(articleListRef.current)
+      setArticleList(articleListRef.current.data)
+      setArticlePagination({ total: articleListRef.current.totalNum })
     }
     fetchData();
     setRefresh(true)
   }, [refresh])
+
+  const paginationProps = {
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: () => `共 ${articlePagination.total} 条`,
+    pageSize: articlePagination.pageSize,
+    current: articlePagination.pageSize,
+    total: articlePagination.total,
+    // onShowSizeChange: (current, pageSize) => this.changePageSize(pageSize, current),
+    // onChange: (current) => this.changePage(current),
+  };
+
+  const editArticleItem = (id) => {
+
+  }
 
   const columns = [
     {
@@ -108,7 +129,7 @@ const ArticleList = () => {
       width: '160px',
       render: (text, record) => (
         <Space size="middle">
-          <Button size="small" type="primary" >编辑</Button>
+          <Button size="small" type="primary" onClick={() => editArticleItem(record._id)}>编辑</Button>
           {record.visibility === 1 ? <Button size="small" type="danger" onClick={() => handleHiddenArticleItem(record)}> 隐藏</Button> : <Button size="small" type="primary" onClick={() => handleHiddenArticleItem(record)}>显示</Button>}
         </Space>
       ),
@@ -130,10 +151,7 @@ const ArticleList = () => {
           setArticleList(articleList.map(n => n._id === result.data[0]._id ? n = result.data[0] : n))
           record.visibility === 1 ? message.success('隐藏文章成功') : message.success('显示文章成功');
         }
-
         hiddenItem();
-
-        // setArticleList()
       },
       onCancel() {
         console.log('Cancel');
@@ -142,7 +160,11 @@ const ArticleList = () => {
   }
 
   return <>
-    <Table columns={columns} dataSource={articleList} rowKey={(record) => record._id} />
+    <Table
+      pagination={paginationProps}
+      columns={columns}
+      dataSource={articleList}
+      rowKey={(record) => record._id} />
   </>
 }
 
