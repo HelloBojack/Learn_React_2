@@ -103,10 +103,10 @@ class AdminService extends Service {
     try {
       let params = ctx.request.body;
       let { pageNo, pageSize } = params;
-      console.log(params)
+      // console.log(params)
 
       let totalNum = await ctx.model.Article.find({}).countDocuments();
-      console.log(totalNum)
+      // console.log(totalNum)
       let results = await ctx.model.Article.find({}).skip((pageNo - 1) * pageSize).limit(Number(pageSize));
 
       if (results.length > 0) {

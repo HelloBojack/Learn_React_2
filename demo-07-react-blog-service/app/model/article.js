@@ -8,13 +8,13 @@ module.exports = app => {
     {
       // 修改和新增用到，规定字段得类型和其他条件等
       title: { type: String, },
-      tags: { type: String },
+      tags: { type: String, default: '' },
       browseNum: { type: Number, default: 0 },
       likeNum: { type: Number, default: 0 },
       commentNum: { type: Number, default: 0 },
-      pic: { type: String },
-      content: { type: String },
-      intro: { type: String },
+      pic: { type: String, default: '' },
+      content: { type: String, default: '' },
+      intro: { type: String, default: '' },
       visibility: {
         type: Number,
         default: 1

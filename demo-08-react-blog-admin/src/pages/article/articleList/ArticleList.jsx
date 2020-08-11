@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Table, Tag, Space, Modal, Button, message } from 'antd';
 
-import { getArticleList, hiddenArticleItem } from '../../../api/api'
+import { getArticleList, updateArticleItem } from '../../../api/api'
 // import { Modal, Button, Space } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
@@ -126,7 +126,7 @@ const ArticleList = () => {
       onOk() {
         let result;
         async function hiddenItem() {
-          result = await hiddenArticleItem({ '_id': record._id, 'visibility': Number(!record.visibility) })
+          result = await updateArticleItem({ '_id': record._id, 'visibility': Number(!record.visibility) })
           setArticleList(articleList.map(n => n._id === result.data[0]._id ? n = result.data[0] : n))
           record.visibility === 1 ? message.success('隐藏文章成功') : message.success('显示文章成功');
         }

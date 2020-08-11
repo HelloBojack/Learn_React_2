@@ -5,17 +5,14 @@ import {
   Form,
   Input,
   Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
   Switch,
   Card,
   Row,
   Col,
+  message,
 } from 'antd';
+
+import { newArticleItem } from '../../../api/api'
 import 'highlight.js/styles/monokai-sublime.css';
 import './ArticleNew.css'
 const { TextArea } = Input
@@ -54,7 +51,15 @@ const ArticleNew = () => {
 
   const onFinish = values => {
     values.visibility = Number(values.visibility)
-    console.log(values);
+    async function newItem() {
+      let result = await newArticleItem(values)
+      if (result.result) {
+        message.success('保存成功')
+      }
+    }
+    newItem()
+
+    // console.log(values);
   };
   return <>
     <Card>
@@ -78,9 +83,7 @@ const ArticleNew = () => {
                 onChange={changeContent}
                 onPressEnter={changeContent}
                 placeholder="文章内容"
-
               />
-
             </Form.Item>
             <Form.Item label="预览：">
               <Switch onChange={previewSwitchOnChange} />
