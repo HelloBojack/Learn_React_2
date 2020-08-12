@@ -6,17 +6,20 @@ import {
   Input
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import './tagArea.css'
 
 const TagsArea = () => {
   const [refresh, setRefresh] = useState(false);
   const [inputState, setInputState] = useState({
-    tags: ['Unremovable', 'Tag 2', 'Tag 3'],
+    tags: [],
     inputVisible: false,
     inputValue: '',
     editInputIndex: -1,
     editInputValue: '',
   })
+  const tagsColorList = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'geekblue', 'purple']
   const inputRef = useRef()
+  const editInputRef = useRef()
 
   useEffect(() => {
     refresh && setTimeout(() => setRefresh(false));
@@ -27,7 +30,7 @@ const TagsArea = () => {
     inputStateTemp.inputVisible = true;
     setInputState(inputStateTemp)
     setRefresh(true)
-    console.log(inputRef)
+    // console.log(inputRef)
     // ()=> inputRef.current.focus()
   };
   const handleClose = () => {
@@ -52,50 +55,76 @@ const TagsArea = () => {
       inputVisible: false,
     });
   };
-
+  const handleInputEdit = (e, index, tag) => {
+    let inputStateTemp = inputState
+    inputStateTemp.editInputIndex = index;
+    inputStateTemp.editInputValue = tag;
+    setInputState(inputStateTemp)
+    e.preventDefault();
+    setRefresh(true)
+  }
+  const handleEditInputChange = e => {
+    let inputStateTemp = inputState
+    inputStateTemp.editInputValue = e.target.value;
+    setInputState(inputStateTemp)
+    setRefresh(true)
+  };
+  const handleEditInputConfirm = () => {
+    let { tags } = inputState;
+    if (inputState.editInputValue && tags.indexOf(inputState.editInputValue) === -1) {
+      tags[inputState.editInputIndex] = inputState.editInputValue;
+    }
+    // console.log(tags)
+    setInputState({
+      tags,
+      inputValue: '',
+      editInputIndex: -1,
+      editInputValue: '',
+      inputVisible: false,
+    });
+  };
   return <>
     {inputState.tags.map((tag, index) => {
-      if (inputState.editInputIndex === index) {
+      if (index === inputState.editInputIndex) {
         return (
           <Input
-            ref={this.saveEditInputRef}
+            ref={editInputRef}
             key={tag}
             size="small"
             className="tag-input"
             value={inputState.editInputValue}
-            onChange={this.handleEditInputChange}
-            onBlur={this.handleEditInputConfirm}
-            onPressEnter={this.handleEditInputConfirm}
+            onChange={handleEditInputChange}
+            onBlur={handleEditInputConfirm}
+            onPressEnter={handleEditInputConfirm}
           />
         );
       }
-      const tagElem = (
-        <Tag
-          className="edit-tag"
-          key={tag}
-          closable={index !== 0}
-          onClose={() => handleClose(tag)}
-        >
-          <span
-            onDoubleClick={e => {
-              if (index !== 0) {
-                this.setState({ editInputIndex: index, editInputValue: tag }, () => {
-                  this.editInput.focus();
-                });
-                e.preventDefault();
-              }
-            }}
-          >
-            {tag.length > 20 ? `${tag.slice(0, 20)}...` : tag}
-          </span>
-        </Tag>
-      );
-      return tag.length > 20 ? (
+      return tag.length > 10 ? (
         <Tooltip title={tag} key={tag}>
-          {tagElem}
+          <Tag
+            style={{ userSelect: 'none' }}
+            key={tag}
+            color={tagsColorList[index % 10]}
+            closable={index !== 0}
+            onClose={() => handleClose(tag)}
+          >
+            <span onDoubleClick={e => handleInputEdit(e, index, tag)}>
+              {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
+            </span>
+          </Tag>
         </Tooltip>
       ) : (
-          tagElem
+          <Tag
+            className="edit-tag"
+            key={tag}
+            color={tagsColorList[index % 10]}
+            closable={true}
+            onClose={() => handleClose(tag)}
+          >
+            <span onDoubleClick={e => handleInputEdit(e, index, tag)}>
+              {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
+            </span>
+          </Tag>
         );
     })}
 
@@ -109,6 +138,7 @@ const TagsArea = () => {
         onChange={handleInputChange}
         onBlur={handleInputConfirm}
         onPressEnter={handleInputConfirm}
+        style={{ width: 100 }}
       />
     ) : (
         <Tag className="site-tag-plus" onClick={() => showInput()}>

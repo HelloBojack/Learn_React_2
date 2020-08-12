@@ -93,7 +93,7 @@ const ArticleNew = () => {
               />
             </Form.Item>
             <Form.Item label="标签：" name="tags" >
-              <Input placeholder="标签" />
+              {/* <Input placeholder="标签" /> */}
               <TagsArea />
             </Form.Item>
             <Form.Item label="预览：">
