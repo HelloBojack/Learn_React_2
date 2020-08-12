@@ -72,6 +72,13 @@ const ArticleNew = () => {
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
             layout="horizontal"
+            initialValues={{
+              title: '',
+              content: '',
+              intro: '',
+              tags: '',
+              visibility: 1,
+            }}
           >
             <Form.Item label="文章标题：" name="title" >
               <Input placeholder="文章标题" />
@@ -120,4 +127,4 @@ const ArticleNew = () => {
 
 }
 
-export default ArticleNew;
+export default React.forwardRef(ArticleNew);

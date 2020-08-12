@@ -1,6 +1,7 @@
 // slr 快捷键
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Form,
   Tag,
   Tooltip,
   Input
@@ -8,7 +9,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import './tagArea.css'
 
-const TagsArea = () => {
+const TagsArea = ({ value = '', onChange }) => {
   const [refresh, setRefresh] = useState(false);
   const [inputState, setInputState] = useState({
     tags: [],
@@ -18,12 +19,17 @@ const TagsArea = () => {
     editInputValue: '',
   })
   const tagsColorList = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'geekblue', 'purple']
-  const inputRef = useRef()
-  const editInputRef = useRef()
 
   useEffect(() => {
     refresh && setTimeout(() => setRefresh(false));
   }, [refresh]);
+
+  const triggerChange = changedValue => {
+    if (onChange) {
+      // console.log(changedValue)
+      onChange(changedValue)
+    }
+  };
 
   const showInput = () => {
     let inputStateTemp = inputState
@@ -31,7 +37,6 @@ const TagsArea = () => {
     setInputState(inputStateTemp)
     setRefresh(true)
     // console.log(inputRef)
-    // ()=> inputRef.current.focus()
   };
   const handleClose = () => {
 
@@ -54,6 +59,9 @@ const TagsArea = () => {
       editInputValue: '',
       inputVisible: false,
     });
+    // console.log(tags)
+    triggerChange(tags.join(','))
+    // value = tags.join(',')
   };
   const handleInputEdit = (e, index, tag) => {
     let inputStateTemp = inputState
@@ -83,70 +91,77 @@ const TagsArea = () => {
       inputVisible: false,
     });
   };
+
+
+
+
+
   return <>
-    {inputState.tags.map((tag, index) => {
-      if (index === inputState.editInputIndex) {
-        return (
-          <Input
-            ref={editInputRef}
-            key={tag}
-            size="small"
-            className="tag-input"
-            value={inputState.editInputValue}
-            onChange={handleEditInputChange}
-            onBlur={handleEditInputConfirm}
-            onPressEnter={handleEditInputConfirm}
-          />
-        );
-      }
-      return tag.length > 10 ? (
-        <Tooltip title={tag} key={tag}>
-          <Tag
-            style={{ userSelect: 'none' }}
-            key={tag}
-            color={tagsColorList[index % 10]}
-            closable={index !== 0}
-            onClose={() => handleClose(tag)}
-          >
-            <span onDoubleClick={e => handleInputEdit(e, index, tag)}>
-              {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
-            </span>
-          </Tag>
-        </Tooltip>
+    <Form.Item>
+
+      {inputState.tags.map((tag, index) => {
+        if (index === inputState.editInputIndex) {
+          return (
+            <Input
+              // ref={saveEditInputRef}
+              key={tag}
+              size="small"
+              className="tag-input"
+              value={inputState.editInputValue}
+              onChange={handleEditInputChange}
+              onBlur={handleEditInputConfirm}
+              onPressEnter={handleEditInputConfirm}
+            />
+          );
+        }
+        return tag.length > 10 ? (
+          <Tooltip title={tag} key={tag}>
+            <Tag
+              style={{ userSelect: 'none' }}
+              key={tag}
+              color={tagsColorList[index % 10]}
+              closable={index !== 0}
+              onClose={() => handleClose(tag)}
+            >
+              <span onDoubleClick={e => handleInputEdit(e, index, tag)}>
+                {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
+              </span>
+            </Tag>
+          </Tooltip>
+        ) : (
+            <Tag
+              className="edit-tag"
+              key={tag}
+              color={tagsColorList[index % 10]}
+              closable={true}
+              onClose={() => handleClose(tag)}
+            >
+              <span onDoubleClick={e => handleInputEdit(e, index, tag)}>
+                {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
+              </span>
+            </Tag>
+          );
+      })}
+
+      {inputState.inputVisible ? (
+        <Input
+          // ref={saveInputRef}
+          type="text"
+          size="small"
+          className="tag-input"
+          value={inputState.inputValue}
+          onChange={handleInputChange}
+          onBlur={handleInputConfirm}
+          onPressEnter={handleInputConfirm}
+          style={{ width: 100 }}
+        />
       ) : (
-          <Tag
-            className="edit-tag"
-            key={tag}
-            color={tagsColorList[index % 10]}
-            closable={true}
-            onClose={() => handleClose(tag)}
-          >
-            <span onDoubleClick={e => handleInputEdit(e, index, tag)}>
-              {tag.length > 10 ? `${tag.slice(0, 10)}...` : tag}
-            </span>
+          <Tag className="site-tag-plus" onClick={() => showInput()}>
+            <PlusOutlined /> New Tag
           </Tag>
-        );
-    })}
-
-    {inputState.inputVisible ? (
-      <Input
-        ref={inputRef}
-        type="text"
-        size="small"
-        className="tag-input"
-        value={inputState.inputValue}
-        onChange={handleInputChange}
-        onBlur={handleInputConfirm}
-        onPressEnter={handleInputConfirm}
-        style={{ width: 100 }}
-      />
-    ) : (
-        <Tag className="site-tag-plus" onClick={() => showInput()}>
-          <PlusOutlined /> New Tag
-        </Tag>
-      )
-    }
-
+        )
+      }
+    </Form.Item>
   </>
 }
 
