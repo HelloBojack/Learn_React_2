@@ -12,7 +12,7 @@ import {
   message,
 } from 'antd';
 
-import { newArticleItem, getArticleItem } from '../../../api/api'
+import { newArticleItem, getArticleItem, updateArticleItem } from '../../../api/api'
 
 import TagsArea from '../../../components/articleNew/tagsArea/tagsArea'
 
@@ -49,6 +49,16 @@ const ArticleNew = (props, ref) => {
       fetchData();
       // setRefresh(true)
     }
+    else {
+      setFormInitialValues({
+        title: '',
+        content: '',
+        intro: '',
+        tags: '',
+        visibility: 1
+      })
+
+    }
   }, [id])
 
 
@@ -80,13 +90,26 @@ const ArticleNew = (props, ref) => {
 
   const onFinish = values => {
     values.visibility = Number(values.visibility)
-    async function newItem() {
-      let result = await newArticleItem(values)
-      if (result.result) {
-        message.success('保存成功')
+    if (id) {
+      let params = { _id: id, ...values }
+      console.log(params)
+      async function updateItem() {
+        let result = await updateArticleItem(params)
+        if (result.result) {
+          message.success('保存成功')
+        }
       }
+      updateItem()
     }
-    newItem()
+    else {
+      async function newItem() {
+        let result = await newArticleItem(values)
+        if (result.result) {
+          message.success('保存成功')
+        }
+      }
+      newItem()
+    }
     // console.log(values);
   };
 

@@ -51,8 +51,8 @@ function Admin(props) {
             <Route path='/home' component={Home}></Route>
             <Route path='/role' component={Role}></Route>
             <Route path='/user' component={User}></Route>
-            <Route path='/article/articleNew' exact component={ArticleNew}></Route>
-            <Route path='/article/articleList/articleEdit/:id' component={ArticleNew}></Route>
+            <Route path='/article/articleNew' exact component={ArticleNew} key='articleNew'></Route>
+            <Route path='/article/articleList/articleEdit/:id' exact component={ArticleNew} key='articleEdit'></Route>
             <Route path='/article/articleList' exact component={ArticleList}></Route>
             {/* <Redirect to='/home' /> */}
           </Switch>
