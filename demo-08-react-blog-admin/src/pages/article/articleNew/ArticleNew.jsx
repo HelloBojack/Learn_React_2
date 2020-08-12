@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import marked from 'marked'
 import hljs from "highlight.js";
 import {
@@ -12,7 +12,7 @@ import {
   message,
 } from 'antd';
 
-import { newArticleItem } from '../../../api/api'
+import { newArticleItem, getArticleItem } from '../../../api/api'
 
 import TagsArea from '../../../components/articleNew/tagsArea/tagsArea'
 
@@ -20,11 +20,37 @@ import 'highlight.js/styles/monokai-sublime.css';
 import './ArticleNew.css'
 const { TextArea } = Input
 
-const ArticleNew = () => {
+const ArticleNew = (props, ref) => {
+  const { match } = props
+  const id = match.params.id
   const [form] = Form.useForm();
   const [articleContent, setArticleContent] = useState('')  //markdown的编辑内容
   const [markdownContent, setMarkdownContent] = useState('预览内容') //html内容
-  const [previewSwitch, setPreviewSwitch] = useState(false)
+  const [formInitialValues, setFormInitialValues] = useState({
+    title: '',
+    content: '',
+    intro: '',
+    tags: '',
+    visibility: 1
+  })
+  const [previewSwitch, setPreviewSwitch] = useState(true)
+  // const [refresh, setRefresh] = useState(false);
+  // const articleRef = useRef();
+  useEffect(() => {
+    if (id) {
+      async function fetchData() {
+        let result = await getArticleItem(id)
+        setFormInitialValues(result.data)
+        setArticleContent(result.data.content)
+        setMarkdownContent(marked(result.data.content))
+        // console.log(initialValues)
+        form.resetFields()
+      }
+      fetchData();
+      // setRefresh(true)
+    }
+  }, [id])
+
 
   // marked & highlight settings
   marked.setOptions({
@@ -48,6 +74,8 @@ const ArticleNew = () => {
 
   const previewSwitchOnChange = (checked) => {
     setPreviewSwitch(checked)
+    setMarkdownContent(marked(articleContent))
+
   }
 
   const onFinish = values => {
@@ -63,6 +91,7 @@ const ArticleNew = () => {
   };
 
   return <>
+    {/* {formInitialValues.tags} */}
     <Card>
       <Row>
         <Col span={12}>
@@ -72,13 +101,7 @@ const ArticleNew = () => {
             labelCol={{ span: 4 }}
             wrapperCol={{ span: 14 }}
             layout="horizontal"
-            initialValues={{
-              title: '',
-              content: '',
-              intro: '',
-              tags: '',
-              visibility: 1,
-            }}
+            initialValues={formInitialValues}
           >
             <Form.Item label="文章标题：" name="title" >
               <Input placeholder="文章标题" />
@@ -100,11 +123,10 @@ const ArticleNew = () => {
               />
             </Form.Item>
             <Form.Item label="标签：" name="tags" >
-              {/* <Input placeholder="标签" /> */}
               <TagsArea />
             </Form.Item>
             <Form.Item label="预览：">
-              <Switch onChange={previewSwitchOnChange} />
+              <Switch defaultChecked onChange={previewSwitchOnChange} />
             </Form.Item>
             <Form.Item label="是否显示：" name="visibility" valuePropName="checked">
               <Switch />

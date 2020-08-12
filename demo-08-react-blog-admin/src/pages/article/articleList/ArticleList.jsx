@@ -7,7 +7,8 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
 
-const ArticleList = () => {
+const ArticleList = (props) => {
+  const { history } = props
   const [articleList, setArticleList] = useState([]);
   const [articlePagination, setArticlePagination] = useState({
     total: 0,
@@ -23,6 +24,7 @@ const ArticleList = () => {
       articleListRef.current = result
       // console.log(articleListRef.current)
       setArticleList(articleListRef.current.data)
+      // console.log(articleList)
       setArticlePagination({ total: articleListRef.current.totalNum })
     }
     fetchData();
@@ -41,7 +43,7 @@ const ArticleList = () => {
   };
 
   const editArticleItem = (id) => {
-
+    history.push("/article/articleList/articleEdit/" + id);
   }
 
   const columns = [
