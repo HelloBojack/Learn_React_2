@@ -9,7 +9,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import './tagArea.css'
 
-const TagsArea = ({ value = '', onChange }) => {
+const TagsArea = ({ value, onChange }) => {
   const [refresh, setRefresh] = useState(false);
   const [inputState, setInputState] = useState({
     tags: [],
@@ -21,7 +21,14 @@ const TagsArea = ({ value = '', onChange }) => {
   const tagsColorList = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'geekblue', 'purple']
 
   useEffect(() => {
+    if (inputState.tags.length) {
+      let inputStateTemp = inputState
+      inputStateTemp.tags = value.split(',');
+      setInputState(inputStateTemp)
+    }
+    // console.log(value)
     refresh && setTimeout(() => setRefresh(false));
+    // eslint-disable-next-line
   }, [refresh]);
 
   const triggerChange = changedValue => {
@@ -38,8 +45,17 @@ const TagsArea = ({ value = '', onChange }) => {
     setRefresh(true)
     // console.log(inputRef)
   };
-  const handleClose = () => {
-
+  const handleClose = removedTag => {
+    // console.log(removedTag)
+    let inputStateTemp = inputState
+    inputStateTemp.tags = inputState.tags.filter(tag => tag !== removedTag);
+    // console.log(inputStateTemp.tags)
+    // console.log(inputStateTemp)
+    setInputState(inputStateTemp)
+    // setRefresh(true)
+    // console.log(inputState)
+    triggerChange(inputStateTemp.tags.join(','))
+    // const tags = this.state.tags.filter(tag => tag !== removedTag);
   }
   const handleInputChange = e => {
     let inputStateTemp = inputState

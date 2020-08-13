@@ -59,6 +59,7 @@ const ArticleNew = (props, ref) => {
       })
 
     }
+    // eslint-disable-next-line
   }, [id])
 
 
