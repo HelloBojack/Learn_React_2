@@ -1,5 +1,5 @@
 // slr 快捷键
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import {
   Form,
   Tag,
@@ -9,7 +9,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import './tagArea.css'
 
-const TagsArea = ({ value, onChange }) => {
+const TagsArea = ({ value, onChange }, ref) => {
   const [refresh, setRefresh] = useState(false);
   const [inputState, setInputState] = useState({
     tags: [],
@@ -21,11 +21,11 @@ const TagsArea = ({ value, onChange }) => {
   const tagsColorList = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'geekblue', 'purple']
 
   useEffect(() => {
-    if (inputState.tags.length) {
-      let inputStateTemp = inputState
-      inputStateTemp.tags = value.split(',');
-      setInputState(inputStateTemp)
-    }
+    // if (inputState.tags.length) {
+    let inputStateTemp = inputState
+    inputStateTemp.tags = value.split(',').filter(i => i);
+    setInputState(inputStateTemp)
+    // }
     // console.log(value)
     refresh && setTimeout(() => setRefresh(false));
     // eslint-disable-next-line
@@ -181,4 +181,4 @@ const TagsArea = ({ value, onChange }) => {
   </>
 }
 
-export default TagsArea;
+export default forwardRef(TagsArea);
