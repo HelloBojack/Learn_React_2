@@ -9,14 +9,18 @@ const { confirm } = Modal;
 
 const Role = (props) => {
   const { history } = props
+  const [visible, setVisible] = useState(false);
+
+
   const [articleList, setArticleList] = useState([]);
+
   const [articlePagination, setArticlePagination] = useState({
     total: 0,
     pageSize: 10,
     pageNo: 1,
   });
   const [refresh, setRefresh] = useState(false);
-  const articleListRef = useRef();
+
 
   useEffect(() => {
     async function fetchData() {
@@ -161,7 +165,21 @@ const Role = (props) => {
     });
   }
 
+  const handleOk = () => {
+
+  }
   return <>
+    <Button type="primary" onClick={() => setVisible(true)}>添加用户</Button>
+    <Modal
+      title="添加用户"
+      visible={visible}
+      okText='确定'
+      onOk={handleOk}
+      cancelText="取消"
+      onCancel={() => setVisible(false)}
+    >
+
+    </Modal>
     <Table
       pagination={paginationProps}
       columns={columns}
