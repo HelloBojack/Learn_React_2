@@ -15,6 +15,7 @@ import storageUtils from '../../../utils/storageUtils'
 import memoryUtils from '../../../utils/memoryUtils'
 
 import { Collapsed } from '../../../store/context'
+
 import menuList from '../../../config/menuConfig.jsx'
 import breadcrumbList from '../../../config/breadcrumb'
 
@@ -35,17 +36,6 @@ function HeaderPro(props) {
         (<Breadcrumb.Item key={url}>
           <Link to={url}>{breadcrumbList[url]}</Link>
         </Breadcrumb.Item>) : ''
-
-    // if (url === '/home') {
-    //   return
-    // }
-    // else if (breadcrumbList[url]) {
-    //   return (
-    //     <Breadcrumb.Item key={url}>
-    //       <Link to={url}>{breadcrumbList[url]}</Link>
-    //     </Breadcrumb.Item>
-    //   );
-    // }
   });
   const breadcrumbItems = [
     <Breadcrumb.Item key="home">
@@ -55,7 +45,7 @@ function HeaderPro(props) {
 
   function handleMenuClick(e) {
     message.info('Click on menu item.');
-    console.log('click', e);
+    // console.log('click', e);
   }
   const logoutClick = () => {
     confirm({
@@ -71,7 +61,7 @@ function HeaderPro(props) {
 
       },
       onCancel() {
-        console.log('Cancel');
+        // console.log('Cancel');
       },
     });
   }
@@ -97,20 +87,13 @@ function HeaderPro(props) {
       })}
       <span style={{ paddingLeft: 20, display: 'inline-block', cursor: 'pointer' }}>
         <Breadcrumb>{breadcrumbItems}</Breadcrumb>
-        {/* <Breadcrumb itemRender={itemRender} routes={menuList} /> */}
-        {/* <Breadcrumb>
-          {breadcrumbSet(menuList)}
-        </Breadcrumb> */}
       </span>
-
-
       <Dropdown overlay={menu} trigger={['click']} placement="bottomLeft" >
         <div>
           <span style={{ padding: '0 10px' }}>{user.username}</span>
           <DownOutlined />
         </div>
       </Dropdown>
-
     </Header >
   </>
 }

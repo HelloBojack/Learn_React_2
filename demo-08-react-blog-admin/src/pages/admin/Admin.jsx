@@ -9,7 +9,6 @@ import memoryUtils from '../../utils/memoryUtils'
 import LeftNav from '../../components/common/leftNav/leftNav'
 import HeaderPro from '../../components/common/headPro/headPro'
 import Role from '../role/Role'
-import User from '../user/User'
 import Home from '../home/Home'
 import ArticleNew from '../article/articleNew/ArticleNew'
 import ArticleList from '../article/articleList/ArticleList'
@@ -50,7 +49,6 @@ function Admin(props) {
             <Route path='/' exact component={Home}></Route>
             <Route path='/home' component={Home}></Route>
             <Route path='/role' component={Role}></Route>
-            <Route path='/user' component={User}></Route>
             <Route path='/article/articleNew' exact component={ArticleNew} key='articleNew'></Route>
             <Route path='/article/articleList/articleEdit/:id' exact component={ArticleNew} key='articleEdit'></Route>
             <Route path='/article/articleList' exact component={ArticleList}></Route>
