@@ -48,7 +48,7 @@ const Role = (props) => {
 
   const columns = [
     {
-      title: '标题',
+      title: '账号',
       dataIndex: 'title',
       key: 'title',
       align: 'center'

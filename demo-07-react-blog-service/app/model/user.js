@@ -1,4 +1,5 @@
 "use strict";
+const dayjs = require('dayjs')
 
 module.exports = app => {
   const mongoose = app.mongoose;
@@ -7,10 +8,19 @@ module.exports = app => {
     {
       username: { type: String, required: true }, // 用户名
       password: { type: String, required: true }, // 密码
-      phone: String,
-      email: String,
-      create_time: { type: Number, default: Date.now },
-      role_id: String
+      nick: { type: String, default: '' }, // 昵称
+      avatar: { type: String, default: '' },// 头像
+      intro: { type: String, default: '' },// 简介
+      phone: { type: String, default: '' },// 手机号
+      email: { type: String, default: '' },// 邮箱
+      createTime: { type: Date, default: () => dayjs(new Date()).add('8', 'hour').format('YYYY-MM-DD HH:mm:ss') },
+      updateTime: { type: Date, default: () => dayjs(new Date()).add('8', 'hour').format('YYYY-MM-DD HH:mm:ss') },
+      role: { type: String, default: '' }, // 权限角色
+      delete: { type: Boolean, default: false }, // 是否禁用
+    },
+    {
+      versionKey: false,
+      timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
     }
   );
 

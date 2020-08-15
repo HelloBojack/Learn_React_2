@@ -47,6 +47,40 @@ class UserService extends Service {
     }
   }
 
+  async logon() {
+    const { ctx, app } = this;
+    try {
+      const params = ctx.request.body;
+      const { username, password } = params;
+      if (await ctx.model.User.findOne({ username })) {
+        return {
+          "result": false,
+          "msg": "注册失败，已存在该帐号",
+        }
+      }
+
+      let user = new ctx.model.User(params)
+      var result = await user.save();
+      if (result) {
+        return {
+          "result": true,
+          "msg": "注册成功",
+        }
+      }
+      else {
+        return {
+          "result": false,
+          "msg": "注册失败",
+        }
+      }
+    } catch (err) {
+      console.log(err)
+      return {
+        "result": false,
+        "msg": "注册失败",
+      }
+    }
+  }
 
 }
 module.exports = UserService;
