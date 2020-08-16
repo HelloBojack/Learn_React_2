@@ -20,7 +20,7 @@ import { message } from 'antd'
 // 根据环境变量设置接口前缀
 switch (process.env.NODE_ENV) {
   case "production":
-    axios.defaults.baseURL = ""
+    axios.defaults.baseURL = "http://39.100.20.241:7001/"
     break
   case "test":
     axios.defaults.baseURL = ""
