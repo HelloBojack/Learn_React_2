@@ -2,7 +2,7 @@ import { post, get, put } from './axios'
 
 export const LoginIn = params => post('/login', params)
 export const logon = params => post('/logon', params)
-
+export const getUserList = params => post('/getUserList', params)
 
 export const getArticleList = params => post('/articleAllPage', params)
 export const updateArticleItem = params => put(`/article/${params._id}`, params)

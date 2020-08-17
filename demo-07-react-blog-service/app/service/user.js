@@ -39,7 +39,7 @@ class UserService extends Service {
         }
       }
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       return {
         "result": false,
         "msg": "登陆失败",
@@ -101,7 +101,7 @@ class UserService extends Service {
       }
 
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       ctx.body = JSON.stringify(err);
     }
   }
