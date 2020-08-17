@@ -82,5 +82,29 @@ class UserService extends Service {
     }
   }
 
+
+  async getUserList() {
+    const { ctx, app } = this;
+    console.log(ctx)
+    try {
+      let params = ctx.request.body;
+      let { pageNo, pageSize } = params;
+      let totalNum = await ctx.model.User.find().countDocuments();
+      const results = await ctx.model.User.find().skip((pageNo - 1) * pageSize).limit(Number(pageSize));
+      if (results.length > 0) {
+        return {
+          "result": true,
+          "totalNum": totalNum,
+          "data": results,
+          "msg": "获取文章成功"
+        };
+      }
+
+    } catch (err) {
+      console.log(err)
+      ctx.body = JSON.stringify(err);
+    }
+  }
+
 }
 module.exports = UserService;
