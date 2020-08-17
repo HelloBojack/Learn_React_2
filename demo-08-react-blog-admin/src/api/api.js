@@ -1,6 +1,7 @@
 import { post, get, put } from './axios'
 
 export const LoginIn = params => post('/login', params)
+export const logon = params => post('/logon', params)
 
 
 export const getArticleList = params => post('/articleAllPage', params)

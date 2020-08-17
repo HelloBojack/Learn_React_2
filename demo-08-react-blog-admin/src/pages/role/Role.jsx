@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Table, Tag, Space, Modal, Button, message } from 'antd';
-
-import { getArticleList, updateArticleItem } from '@/api/api'
-// import { Modal, Button, Space } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Tag, Space, Modal, Button, message, Form, Input, Select } from 'antd';
+import { logon, updateArticleItem } from '@/api/api'
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { confirm } = Modal;
-
+const { Option } = Select;
 const Role = (props) => {
   const { history } = props
+  const [form] = Form.useForm();
   const [visible, setVisible] = useState(false);
 
 
@@ -165,20 +164,85 @@ const Role = (props) => {
     });
   }
 
-  const handleOk = () => {
 
-  }
+  const onFinish = values => {
+    // console.log('Success:', values);
+    async function api_logon() {
+      let result = await logon(values)
+      console.log(result)
+      if (result.result) {
+        message.success('添加成功')
+        setVisible(false)
+      }
+      else {
+        message.error(result.msg)
+      }
+    }
+    api_logon()
+  };
+
+  const onFinishFailed = errorInfo => {
+    // console.log('Failed:', errorInfo);
+    message.error('添加失败')
+  };
+
   return <>
     <Button type="primary" onClick={() => setVisible(true)}>添加用户</Button>
     <Modal
       title="添加用户"
       visible={visible}
       okText='确定'
-      onOk={handleOk}
+      onOk={() => form.submit()}
       cancelText="取消"
       onCancel={() => setVisible(false)}
     >
-
+      <Form
+        form={form}
+        name="basic"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+        <Form.Item
+          label="账号"
+          name="username"
+          style={{ width: 300 }}
+          rules={[
+            { required: true, message: '请输入用户名' },
+            { min: 4, message: '用户名需大于4位' },
+            { max: 20, message: '用户名需小于20位' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="密码"
+          name="password"
+          style={{ width: 300 }}
+          rules={[
+            { required: true, message: '请输入密码' },
+            { min: 4, message: '密码需大于4位' },
+            { max: 20, message: '密码需小于20位' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="角色"
+          name="role"
+          rules={[
+            {
+              required: true,
+              message: '请选择角色',
+            },
+          ]}
+          initialValue="admin"
+        >
+          <Select style={{ width: 120 }}>
+            <Option value="admin">管理员</Option>
+            <Option value="user">普通员工</Option>
+          </Select>
+        </Form.Item>
+      </Form>
     </Modal>
     <Table
       pagination={paginationProps}
