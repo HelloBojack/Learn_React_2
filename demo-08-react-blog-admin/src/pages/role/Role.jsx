@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Card, Space, Modal, Button, message, Form, Input, Select } from 'antd';
-import { logon, getUserList, updateArticleItem } from '@/api/api'
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { logon, getUserList } from '@/api/api'
+// import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-const { confirm } = Modal;
+// const { confirm } = Modal;
 const { Option } = Select;
 const Role = (props) => {
   const { history } = props
@@ -18,7 +18,7 @@ const Role = (props) => {
     pageSize: 10,
     pageNo: 1,
   });
-  const [refresh, setRefresh] = useState(false);
+  // const [refresh, setRefresh] = useState(false);
 
 
   useEffect(() => {
