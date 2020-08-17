@@ -57,7 +57,9 @@ function LeftNav(props) {
       collapsible
       collapsed={collapsed}
     >
-      <div className="logo" />
+      <div className="logo" >
+        <img src="//img10.360buyimg.com/imgzone/jfs/t1/148315/38/5650/5859/5f39e1a1Ebb907c32/5b06a165714f6481.png" alt="" style={{ width: '100%' }} />
+      </div>
       <Menu theme="dark" mode="inline"
         defaultSelectedKeys={[navDefaultSelectedKeys]}
         defaultOpenKeys={[defaultOpenKeys]}
